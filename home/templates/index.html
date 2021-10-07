@@ -1,0 +1,16 @@
+{% extends 'baseForHome.html' %}
+
+{% block body %}
+<div>
+    {% if user.is_authenticated %}
+        {{ user.username }}님, 반갑습니다!
+        <a href="{% url 'main' %}"><button>들어가기</button></a>
+        <a href="{% url 'signout' %}"><button>Sign Out</button></a>
+    {% else %}
+        <h2>Sign in</h2>
+        <a href="{% url 'signin' %}"><button>Sign in with E-mail</button></a>
+        <a href="{% url 'social:begin' 'google-oauth2' %}" target='_blank'><button>Sign in with Google</button></a>
+        <a href="{% url 'main' %}">Skip Sign in</a>
+    {% endif %}
+</div>
+{% endblock %}

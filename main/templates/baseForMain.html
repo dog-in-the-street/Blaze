@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div><a href='{% url "index" %}'>Blaze (로고)</a></div> 
+
+    <h1>Main Contents Page</h1>
+    {% if user.is_authenticated %}
+        {{ user.username }}님, 반갑습니다!
+    {% else %}
+        로그인 하시려면 <a href="{% url 'index' %}">이곳</a>을 클릭하세요
+    {% endif %}
+
+    {% block contents %}
+    {% endblock %}
+</body>
+</html>
