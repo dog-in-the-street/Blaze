@@ -11,16 +11,16 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os, json
+from django.core.exceptions import ImproperlyConfigured
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-import os, json
-from django.core.exceptions import ImproperlyConfigured
 
 
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'Blaze.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 
@@ -163,3 +163,18 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '372960183311-vch503cb5ep5p28fln94485lj1l6984e.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'jG1hezclO59_ZNRttySH2nR5'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+# static root
+STATICFILES_DIRS = [
+  os.path.join(BASE_DIR, 'intro', 'static'),
+  os.path.join(BASE_DIR, 'main', 'static'),
+  os.path.join(BASE_DIR, 'accounts', 'static'),
+]
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+# media root
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

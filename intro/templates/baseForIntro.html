@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blaze !</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/intro.css' %}">  
     {% block head %}
     {% endblock %}
 </head>
 <body>
-    <div><a href='{% url "index" %}'>Blaze (로고)</a></div>
+    <section class="background">
+    <div class="intro-logo"><a href='{% url "index" %}'><img src="{% static 'images/white logo.png' %}"></a></div>
     {% block body %}
     {% endblock %}
+</section>
 </body>
 </html>

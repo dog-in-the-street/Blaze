@@ -1,16 +1,31 @@
 {% extends 'baseForIntro.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/intro.css' %}">  
+{% endblock %}
+
 
 {% block body %}
-<div>
-    {% if user.is_authenticated %}
-        {{ user.username }}님, 반갑습니다!
-        <a href="{% url 'main' %}"><button>들어가기</button></a>
-        <a href="{% url 'signout' %}"><button>Sign Out</button></a>
-    {% else %}
-        <h2>Sign in</h2>
-        <a href="{% url 'signin' %}"><button>Sign in with E-mail</button></a>
-        <a href="{% url 'social:begin' 'google-oauth2' %}" target='_blank'><button>Sign in with Google</button></a>
-        <a href="{% url 'main' %}">Skip Sign in</a>
-    {% endif %}
-</div>
+
+    <div class="intro-message">
+        Have a good one<br>
+        Nice to meet you
+    </div>
+    <div class="modal-container">
+        {% if user.is_authenticated %}
+            <h2>Welcome {{ user.username }}!!!</h2>
+            <a href="{% url 'main' %}"><button>Go to blaze!</button></a>
+            <a href="{% url 'signout' %}"><button>Sign Out</button></a>
+        {% else %}
+            <h2>Sign in</h2>
+                <div class="btn-wrapper">
+                  <button class="signIn-btn"><a href="{% url 'signin' %}">Sign in with E-mail</a></button>
+                  <button class="google-signIn-btn"><a href="{% url 'social:begin' 'google-oauth2' %}" target='_blank'>Sign in with Google</a></button>
+                    <a href="{% url 'main' %}" class="skip-link">Skip Sign in</a>
+                </div>
+        {% endif %}
+
+ 
+    </div>
+
 {% endblock %}
