@@ -1,0 +1,16 @@
+.create_write2 {
+    display: flex;
+    position: absolute;
+    width: 680px;
+    height: 70px;
+    left: calc(50% - 680px/2 + 141px);
+    top: calc(50% - 80px/2 - 321.5px);
+    border: 1px ridge black;
+    background: #FFFFFF;
+    border-radius: 8px;
+}
+
+.create_btn2{
+    flex: 1;
+    font-size: 18px;
+}
