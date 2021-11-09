@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'intro',
     'accounts',
     'main',
+    
 
     #google API social login 목적
     'social_django',
@@ -127,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 

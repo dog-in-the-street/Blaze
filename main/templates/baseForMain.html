@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/baseForMain.css' %}">
     {% block head %}{% endblock %}
+    
 </head>
 <body>
-    <div><a href='{% url "index" %}'>Blaze (로고)</a></div> 
+    <nav>
+        <div><a href='{% url "index" %}'>Blaze (로고)</a></div> 
 
-    <h1>Main Contents Page</h1>
-    {% if user.is_authenticated %}
-        {{ user.username }}님, 반갑습니다!
-    {% else %}
-        로그인 하시려면 <a href="{% url 'index' %}">이곳</a>을 클릭하세요
-    {% endif %}
+        {% if user.is_authenticated %}
+            {{ user.username }}님, 반갑습니다!
+        {% else %}
+            로그인 하시려면 <a href="{% url 'index' %}">이곳</a>을 클릭하세요
+        {% endif %}
 
+    
+        <div class="create_write">
+            <a href="{%url 'create' %}">
+                <div class="create_btn">
+                    +
+                </div>
+            </a>
+        </div>
+
+
+    </nav>
+
+    <div class= category>
+
+
+    </div>
+
+    <div class="contents">
+        <div class="create_write2">
+
+            <div class="create_btn2">
+                Create new post!
+            </div>
+        </div>
+
+
+    </div>
     {% block contents %}
     {% endblock %}
+
+    
+
+
+
 </body>
 </html>

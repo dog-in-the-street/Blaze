@@ -1,0 +1,30 @@
+{% extends 'baseForMain.html' %}
+
+{% block contents %}
+
+{{my_post.id}}
+<br>
+{{my_post.author}}
+
+<!-- user가 쓴 글일때 더보기 클릭하면 -->
+<div class="icon"> 
+    <a href="{%url 'update' my_post.id %}"><button>Edit</button></a>
+    <a href="{%url 'delete' my_post.id %}"><button>Delete</button></a>
+
+
+</div>
+
+<!-- user가 쓴 글이 아닐 때 더보기 클릭하면 -->
+<div class="icon">
+    <button>send a message</button>
+</div>
+
+<br>{{my_post.title}}
+
+<br>{{my_post.text}}
+
+<br>{{my_post.image}}
+
+
+
+{% endblock %}
