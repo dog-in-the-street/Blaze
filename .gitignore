@@ -1,5 +1,6 @@
 __pycache__
 venv/
+myvenv/
 db.sqlite3
 secrets.json
 custom_settings.py
@@ -131,6 +132,11 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+#이거 맞는지
+myvenv/
+.myvenv
+myvenv.bak/
 
 # Spyder project settings
 .spyderproject
