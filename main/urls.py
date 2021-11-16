@@ -11,7 +11,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('main/',main, name="main"),
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('create/',create,name="create"),
     # path("", PostList.as_view(), name='main'),
     # path("create/", PostCreate.as_view(), name='create'),
