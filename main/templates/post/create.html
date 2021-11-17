@@ -9,8 +9,16 @@
 <body>
     <form method="POST", enctype="multipart/form-data" >
         {% csrf_token %}
-        {{post_form.as_p}}
-        <input type="submit" value="submit">
+        {{create_form.as_p}}
+
+
+        {{ ImageFormSet.management_form }}
+        {% for form in ImageFormSet %}
+            {{ form }}<br/>
+        {% endfor %}
+
+        <input type="submit" value="submit" />
+    </form>
 </body>
 </html>
 

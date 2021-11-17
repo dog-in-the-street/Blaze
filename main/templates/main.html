@@ -10,9 +10,12 @@
                     <p>{{post.id}}</p>
                     <p>{{post.author}}</p>
                     <p>{{post.title}}</p>
-                    <p>{{post.text}}</p>
+                    <div class="post.text">{{post.text}}</div>
                     {% if post.image %}
+                        {% for i in post.image.all %}
                         <img src="{{post.image.url}}"/>
+
+                        {% endfor %}
 
                     {% endif %}
                     <p>{{post.updated|date:"Y.m.d"}}</p>
