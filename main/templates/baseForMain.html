@@ -11,7 +11,7 @@
     
 </head>
 <body>
-    <nav>
+    <nav class="navMenu">
         <div><a href='{% url "index" %}'>Blaze (로고)</a></div> 
 
         {% if user.is_authenticated %}
@@ -21,14 +21,22 @@
         {% endif %}
 
     
-        <div class="create_write">
+        <div class="create_write_btn">
             <a href="{%url 'create' %}">
-                <div class="create_btn">
-                    +
+                <img src="{% static 'i' %}"
+                
+                    
                 </div>
             </a>
         </div>
 
+        <div class="alarm">
+            <a href="">
+                <div class="alarm_btn">
+                    <icon/>
+                </div>
+            </a>
+        </div>
 
     </nav>
 
