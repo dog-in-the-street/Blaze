@@ -3,6 +3,8 @@ from typing import Text
 from django.contrib.auth.models import User
 from django.db import models
 
+from accounts.models import BlazeUser
+
 # Create your models here.
 
 # class Category(models.Model):
@@ -17,7 +19,7 @@ from django.db import models
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    author = models.ForeignKey(BlazeUser, on_delete=models.CASCADE, related_name='user')
     # category = models.CharField(max_length=30, null=True )
     title = models.CharField(max_length=30, null=True)
     text = models.TextField(blank=True)
