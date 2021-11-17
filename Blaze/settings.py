@@ -62,6 +62,12 @@ INSTALLED_APPS = [
     'social_django',
 ]
 
+#django- countries 사용 위해 외부 앱 설치 명시
+THIRD_PARTY_APPS = [ 
+    "django-countries", 
+    ]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -179,3 +185,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#custom user model 경로
+AUTH_USER_MODEL = 'accounts.BlazeUser'
+
+#email 인증 - SMTP

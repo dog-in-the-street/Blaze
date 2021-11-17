@@ -4,16 +4,18 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import fields
 from django.template.defaultfilters import slugify
+from accounts.models import BlazeUser
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)
-
+    
     def __str__(self) :
         return self.category_name    
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    author = models.ForeignKey(BlazeUser, on_delete=models.CASCADE, related_name='user')
     # category = models.CharField(max_length=30, null=True )
     title = models.CharField(max_length=30, null=True)
     text = models.TextField(blank=True)
