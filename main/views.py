@@ -1,26 +1,15 @@
 from django.db import models
 from django.db.models import fields
-from django.forms.models import construct_instance
-from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-# from django.views.generic.list import ListView
-# from django.views.generic.edit import CreateView, UpdateView, DeleteView
-# from django.views.generic.detail import DetailView
-from .models import Category, Images, Post
-from .forms import ImageForm, PostForm
+from .models import *
+from .forms import *
 from django.forms import modelformset_factory
 
-import flag
-
-from django.core.paginator import Paginator
 
 def main(request):
     context = dict()
     all_post = Post.objects.all()
     context['all_post'] = all_post
-    flag = request.user.country
-    context['flag'] = flag
-    print(flag.flag)
     categories = Category.objects.all()
     context['categories'] = categories
     return render(request,'main.html',context)
@@ -65,35 +54,6 @@ def create(request):
     
     return render(request, 'post/create.html',
                   {'postForm': postForm, 'formset': formset})
-
-
-# def create(request):
-#     create_form = PostForm(request.POST)
-#     ImageFormSet = modelformset_factory(Images,form=ImageForm, extra=5)
-
-#     if request.method =="POST":
-#         create_form = PostForm(request.POST,request.FILES)
-
-#         formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
-#         if create_form.is_valid() and formset.is_valid():
-#             temp_form = create_form.save(commit=False)
-#             temp_form.author = request.user
-#             temp_form.save()
-
-#             for form in formset.cleaned_data:
-
-#                 if form:
-#                     image = form['image']
-#                     photo = Images(post=temp_form, image=image)
-#                     photo.save()
-
-#             return redirect('main')
-#     else:
-#         create_form = PostForm()
-#         formset = ImageFormSet(queryset=Images.objects.none())
-
-
-#     return render(request,'post/create.html',{'create_form':create_form, 'ImageFormSet': ImageFormSet})
 
 
 def detail(request,post_id):
