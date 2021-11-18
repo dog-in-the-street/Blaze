@@ -1,7 +1,8 @@
 from os import name
 from django.contrib import admin
 from django.urls import path
-from .views import delete, main, create, detail, update, delete
+from .views import *
+# delete, main, create, detail, update, delete
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -18,6 +19,14 @@ urlpatterns = [
     path('delete/<int:post_id>', delete, name="delete"),
     path('update/<int:post_id>',update, name="update"),
     path('detail/<int:post_id>', detail, name="detail"),
+
+    # path('All',All,name="All"),
+    # path('Besttopic',Besttopic,name="Besttopic"),
+    # path('Hotplace',Hotplace,name="Hotplace"),
+    # path('K-culture',K-culture,name="K-culture"),
+    # path('Languageexchange',Languageexchange,name="Languageexchange"),
+    # path('Univlife',Univlife,name="Univlife"),
+
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 

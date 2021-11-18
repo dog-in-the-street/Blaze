@@ -68,7 +68,6 @@ def delete(request,post_id):
 
 # def All(request):
 #     context = dict()
-
 #     if request.method == "POST" :
 #         field_form = PostForm(request.POST, request.FILES)
 #         if field_form.is_valid():
@@ -79,13 +78,12 @@ def delete(request,post_id):
 #     context['post_form'] = PostForm()
 #     return render(request,'create.html',context)
 
-# def HotPlace(request,category_id):
+# def Hotplace(request,category_id):
     
 #     return render('category/Hotplace.html')
 
 # def Univlife(request):
 #     context = dict()
-
 #     if request.method == "POST" :
 #         field_form = PostForm(request.POST, request.FILES)
 #         if field_form.is_valid():
@@ -98,7 +96,6 @@ def delete(request,post_id):
 
 # def Languageexchange(request):
 #     context = dict()
-
 #     if request.method == "POST" :
 #         field_form = PostForm(request.POST, request.FILES)
 #         if field_form.is_valid():
@@ -111,7 +108,6 @@ def delete(request,post_id):
 
 # def K_culture(request):
 #     context = dict()
-
 #     if request.method == "POST" :
 #         field_form = PostForm(request.POST, request.FILES)
 #         if field_form.is_valid():
