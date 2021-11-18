@@ -18,14 +18,12 @@
             <a href="{% url 'signout' %}"><button>Sign Out</button></a>
         {% else %}
             <h2>Sign in</h2>
-                <div class="btn-wrapper">
-                  <button class="signIn-btn"><a href="{% url 'signin' %}">Sign in with E-mail</a></button>
-                  <button class="google-signIn-btn"><a href="{% url 'social:begin' 'google-oauth2' %}" target='_blank'>Sign in with Google</a></button>
-                    <a href="{% url 'main' %}" class="skip-link">Skip Sign in</a>
-                </div>
+            <div class="btn-wrapper">
+              <button class="signIn-btn"><a href="{% url 'signin' %}">Sign in with E-mail</a></button>
+              <button class="google-signIn-btn"><a href="{% url 'social:begin' 'google-oauth2' %}" target='_blank'>Sign in with Google</a></button>
+                <a href="{% url 'main' %}" class="skip-link">Skip Sign in</a>
+            </div>
         {% endif %}
-
- 
     </div>
 
 {% endblock %}

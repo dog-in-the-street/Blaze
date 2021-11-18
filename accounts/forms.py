@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 
 class SignUpForm(UserCreationForm):
     class Meta:
-        model = BlazeUser #BlazeUser로 하면?
+        model = BlazeUser 
         fields = ['email', 'nickname', 'password1', 'password2', 'country']
 
     def clean(self):
