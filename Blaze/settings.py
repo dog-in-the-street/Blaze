@@ -59,17 +59,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'intro',
     'accounts',
-    
+    'django_countries',
     
 
     #google API social login 목적
     'social_django',
 ]
 
-#django- countries 사용 위해 외부 앱 설치 명시
-THIRD_PARTY_APPS = [ 
-    "django-countries", 
-    ]
+# #django- countries 사용 위해 외부 앱 설치 명시
+# THIRD_PARTY_APPS = [ 
+#     "django-countries", 
+#     ]
 
 
 MIDDLEWARE = [

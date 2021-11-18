@@ -8,25 +8,20 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/baseForMain.css' %}">
     {% block head %}{% endblock %}
-    
 </head>
 <body>
     <nav class="navMenu">
         <div><a href='{% url "index" %}'>Blaze (로고)</a></div> 
 
         {% if user.is_authenticated %}
-            {{ user.username }}님, 반갑습니다!
+            {{ user.nickname }}님, 반갑습니다!
         {% else %}
             로그인 하시려면 <a href="{% url 'index' %}">이곳</a>을 클릭하세요
         {% endif %}
 
-    
         <div class="create_write_btn">
             <a href="{%url 'create' %}">
                 <img src="{% static 'i' %}">
-                
-                    
-                </div>
             </a>
         </div>
 
@@ -37,28 +32,32 @@
                 </div>
             </a>
         </div>
-
     </nav>
 
-    <div class= category>
-
-
+    <div class="category">
     </div>
 
     <div class="contents">
         <div class="create_write2">
-
             <div class="create_btn2">
                 Create new post!
             </div>
         </div>
-
-
     </div>
+
     {% block contents %}
     {% endblock %}
 
-    
+    <script>
+        const getFlagEmoji = (countryCode) => countryCode.toUpperCase().replace(/./g,
+            char => String.fromCodePoint(127397 + char.charCodeAt())
+        );
+        const flagReplace = document.querySelectorAll('[data-flag]');
+        flagReplace.forEach(s => s.innerHTML = getFlagEmoji(s.dataset.flag))
+    </script>
+
+    {% block script %}
+    {% endblock %}
 
 
 

@@ -7,11 +7,11 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title','text','category',)
 
-        # error_messages = {
-        #     'Title' : {
-        #         'max_length': _("wpahrdms")
-        #     }
-        # }
+        widgets = {
+                'title': forms.TextInput(attrs={'placeholder': 'Title'}),
+                'text': forms.Textarea(
+                attrs={'placeholder':'Write something!'}),
+}
 
 class ImageForm(forms.ModelForm):
     class Meta:
