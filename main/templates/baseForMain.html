@@ -8,7 +8,6 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/baseForMain.css' %}">
     {% block head %}{% endblock %}
-    
 </head>
 <body>
     <nav class="navMenu">
@@ -20,13 +19,9 @@
             로그인 하시려면 <a href="{% url 'index' %}">이곳</a>을 클릭하세요
         {% endif %}
 
-    
         <div class="create_write_btn">
             <a href="{%url 'create' %}">
                 <img src="{% static 'i' %}">
-                
-                    
-                </div>
             </a>
         </div>
 
@@ -37,30 +32,19 @@
                 </div>
             </a>
         </div>
-
     </nav>
 
     <div class= category>
-
-
     </div>
 
     <div class="contents">
         <div class="create_write2">
-
             <div class="create_btn2">
                 Create new post!
             </div>
         </div>
-
-
     </div>
     {% block contents %}
     {% endblock %}
-
-    
-
-
-
 </body>
 </html>

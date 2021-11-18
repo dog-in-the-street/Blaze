@@ -1,29 +1,19 @@
-
-    {% extends 'baseForMain.html' %}
-  
-
-
-        {% block contents %}
-            {% for post in all_post %}
-            <a href="{% url 'detail' post.id %}">
-                <div class="all_post">
-                    <p>{{post.id}}</p>
-                    <p>{{post.author}}</p>
-                    <p>{{post.title}}</p>
-                    <div class="post.text">{{post.text}}</div>
-                    {% if post.image %}
-                        {% for i in post.image.all %}
-                        <img src="{{post.image.url}}"/>
-
-                        {% endfor %}
-
-                    {% endif %}
-                    <p>{{post.updated|date:"Y.m.d"}}</p>
-                
-                </div>
-            </a>    
-            
-            {%endfor%}
-
-        {% endblock %}
-
+{% extends 'baseForMain.html' %}
+{% block contents %}
+{% for post in all_post %}
+<a href="{% url 'detail' post.id %}">
+    <div class="all_post">
+        <p>{{post.id}}</p>
+        <p>{{post.author}}</p>
+        <p>{{post.title}}</p>
+        <div class="post.text">{{post.text}}</div>
+        {% if post.image %}
+            {% for i in post.image.all %}
+            <img src="{{post.image.url}}"/>
+            {% endfor %}
+        {% endif %}
+        <p>{{post.updated|date:"Y.m.d"}}</p>
+    </div>
+</a>    
+{% endfor %}
+{% endblock %}
