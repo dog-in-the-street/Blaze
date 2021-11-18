@@ -53,3 +53,14 @@ class Images(models.Model):
        return str(self.post)
 
 
+# chat
+class Message(models.Model):
+    author = models.ForeignKey(BlazeUser, on_delete=models.CASCADE, related_name='user_chat')
+    room = models.CharField(max_length=50, null=True, blank=True)
+    context = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.room) + '/' + str(self.author) + '/' + str(self.timestamp)
+
+

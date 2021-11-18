@@ -5,9 +5,10 @@ from django.shortcuts import get_object_or_404, render, redirect
 # from django.views.generic.list import ListView
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.views.generic.detail import DetailView
-from .models import Images, Post
+from .models import Images, Post, Message
 from .forms import ImageForm, PostForm
 from django.forms import modelformset_factory
+from django.contrib.auth.models import User
 
 def main(request):
     all_post = Post.objects.all()
@@ -149,5 +150,35 @@ def delete(request,post_id):
 #     model = Post
 #     template_name_suffix = '_detail'
 #     success_url = '/'
+
+
+# chat
+def lobby(request):
+    # 나와 채팅한 유저가 최신순으로 채팅방 리스트에 정렬되어야 함. 
+    # 해당 메시지에서 연결된 foreignkey를 참조하면 됨. 
+    # 메시지를 순차적으로 정렬
+    # 한 명 당 여러 개의 메시지가 들어올 수 있는데 이 중에서 하나를 받아오면 나머지는 무시하고 다음 유저로. 
+
+    # Message
+    messages = Message.objects.all()
+
+    # User
+    users = User.objects.all() # 나중에 수정하기
+    return render(request, 'chat/lobby.html', {
+        'users' : users,
+        'messages' : messages,
+    })
+
+
+def room(request, room_name):
+    recent_messages = Message.objects.filter(room=room_name).order_by('timestamp')
+    return render(request, 'chat/room.html', {
+        'room_name' : room_name,
+        'recent_messages' : recent_messages,
+    })
+
+
+
+
 
 

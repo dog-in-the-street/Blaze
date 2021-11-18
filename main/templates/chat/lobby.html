@@ -1,0 +1,42 @@
+{% extends 'baseForMain.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block contents %}
+    <div class="chat-list">
+        {% for user in users %}
+            <!-- 나를 제외한 나머지 유저  -->
+            <!-- 일단 이렇게 만들어 놓고 나중에 유저 / 메시지 / 날짜와 시간 표시하게 바꾸기 -->
+            <div>
+                <button id="{{ user }}" class="userName" onclick="CreateChatUrl(this.id)">{{ user }}</button>
+            </div>
+
+        {% endfor %}
+    </div>
+    <script>
+        // userName을 눌렀을 때 roomName 변수 할당하고 url 정보 수정.
+        function CreateChatUrl(e) {
+            let firstUser = "{{ user }}"; // 현재 로그인한 유저 
+            let secondUser = e; // secondUser는 최신순으로 연결된 메시지 순으로 해당 유저를 받아야함. 
+            let userArr = [firstUser, secondUser]; // 현재 로그인한 유저와 선택한 유저를 배열에 넣기
+            // 채팅방 이름을 아무렇게나 지으면 안되고 채팅 참가자를 어떠한 순서에 따라서 url을 만들어야 할듯. 
+            userArr.sort(); // 정렬
+            
+            let userA = userArr[0];
+            let userB = userArr[1];
+            let roomName = userA + userB;
+            let roomNameForUrl = '';
+
+
+            // ascii로 변환한 뒤에 String로 형변환해서 변수 할당.
+            for (let i=0; i < roomName.length; i++) {
+                let ascii = String(roomName.charCodeAt(i)); 
+                roomNameForUrl = roomNameForUrl + ascii;
+            }
+            
+            // ascii code로 변환
+            window.location.pathname = '/chat/' + roomNameForUrl  + '/';
+        };
+    </script>
+{% endblock %}
