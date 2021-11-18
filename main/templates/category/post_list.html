@@ -1,0 +1,25 @@
+{% extends 'baseForMain.html' %}
+
+{% block contents %}
+    {% for post in  category_post %}
+    <a href="{% url 'detail' post.id %}">
+        <div id="flag" data-flag="{{post.author.country}}"></div>
+        <div>{{post.author.nickname}}</div>
+        <div class="title">{{post.title}}</div>
+        <div class="content">{{post.text}}</div>
+       
+        {% if post.image %}
+        {% for i in post.image.all %}
+        <img src="{{i.image.url}}"/>
+
+        {% endfor %}
+
+    {% endif %}
+    <p>{{post.updated|date:"Y.m.d.h"}}</p>
+        
+    {% endfor %}
+
+  
+
+   
+{% endblock %}

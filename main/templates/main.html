@@ -1,29 +1,46 @@
 
     {% extends 'baseForMain.html' %}
-  
+
+    {% load static %}
+    {% block head %} <link rel="stylesheet" href="{% static 'flags/sprite-hq.css' %}">
+    {% endblock %}
 
 
-        {% block contents %}
+    {% block contents %}
+    <div class="category">
+        <div class="all"><a href="{% url 'main' %}">All</a></div>
+        {% for category in categories %}
+       <div class="category"><a href="{% url 'category' category.id %}">{{category}}</a></div> 
+        {% endfor %}
+
+    </div>
             {% for post in all_post %}
             <a href="{% url 'detail' post.id %}">
                 <div class="all_post">
-                    <p>{{post.id}}</p>
-                    <p>{{post.author}}</p>
+                   
+                
+              <p id="flag" data-flag="{{post.author.country}}"></p>
+                  
+                    <p>{{post.author.nickname}}</p>
                     <p>{{post.title}}</p>
+                 
                     <div class="post.text">{{post.text}}</div>
+                    
                     {% if post.image %}
                         {% for i in post.image.all %}
-                        <img src="{{post.image.url}}"/>
+                        <img src="{{i.image.url}}"/>
 
                         {% endfor %}
 
                     {% endif %}
-                    <p>{{post.updated|date:"Y.m.d"}}</p>
+                    <p>{{post.updated|date:"Y.m.d.h"}}</p>
+                    <p>{{post.category}}</p>
                 
                 </div>
             </a>    
             
             {%endfor%}
 
-        {% endblock %}
+    {% endblock %}
+
 

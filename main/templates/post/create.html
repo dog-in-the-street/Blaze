@@ -7,17 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST", enctype="multipart/form-data" >
+    <form method="POST" enctype="multipart/form-data" >
         {% csrf_token %}
-        {{create_form.as_p}}
+        
+        <div class="post-title">{{postForm.title}}</div>
+        
+        <div class="post-text">{{postForm.text}}</div>
+        <label for="post-category">{{postForm.category.label}}</div>
+        <div class="post-text">{{postForm.category}}</div>
 
-
-        {{ ImageFormSet.management_form }}
-        {% for form in ImageFormSet %}
+        {{ formset.management_form }}
+        {% for form in formset %}
             {{ form }}<br/>
         {% endfor %}
-
-        <input type="submit" value="submit" />
+       
+        <input type="submit" value="Blaze!" />
     </form>
 </body>
 </html>
