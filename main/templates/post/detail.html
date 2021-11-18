@@ -2,32 +2,40 @@
 
 {% block contents %}
 
-{{my_post.id}}
-<br>
-{{my_post.author}}
-
 <!-- user가 쓴 글일때 더보기 클릭하면 -->
 <div class="icon"> 
+
+    {% if request.user == my_post.author %}
     <a href="{%url 'update' my_post.id %}"><button>Edit</button></a>
-    <a href="{%url 'delete' my_post.id %}"><button>Delete</button></a>
+    <a href="{%url 'delete' my_post.id %}"><button id="deleteBtn" onclick="return confirm('Are you sure you want to delete this?');">Delete</button></a>
 
-
+    {% endif %}
 </div>
 
 <!-- user가 쓴 글이 아닐 때 더보기 클릭하면 -->
 <div class="icon">
     <button>send a message</button>
 </div>
-
+<p id="flag" data-flag="{{my_post.author.country}}"></p>
+{{my_post.author.nickname}}
 <br>{{my_post.title}}
 
 <br>{{my_post.text}}
+ 
+{% if my_post.image %}
+{% for i in my_post.image.all %}
+<img src="{{i.image.url}}"/>
 
-<br>{{my_post.image}}
+{% endfor %}
+
+{% endif %}
+<p>{{my_post.updated|date:"Y.m.d"}}</p>
 
 
-<img src="{{my_post.image.url}}" />
 
 
 
 {% endblock %}
+
+
+
