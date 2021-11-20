@@ -53,3 +53,10 @@ class Images(models.Model):
        return str(self.post)
 
 
+class Comment(models.Model):
+  post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
+  body = models.CharField('댓글 작성하기', max_length=150)
+  created_at = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+      return self.body
