@@ -56,10 +56,18 @@ INSTALLED_APPS = [
     'intro',
     'accounts',
     'main',
+    'django_countries',
+    
 
     #google API social login 목적
     'social_django',
 ]
+
+# #django- countries 사용 위해 외부 앱 설치 명시
+# THIRD_PARTY_APPS = [ 
+#     "django-countries", 
+#     ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,7 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -178,3 +186,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#custom user model 경로
+AUTH_USER_MODEL = 'accounts.BlazeUser'
+
+#email 인증 - SMTP

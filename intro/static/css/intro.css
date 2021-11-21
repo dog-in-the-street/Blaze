@@ -93,3 +93,33 @@ body {
     color: #666666;
     font-size: 1.4rem;
 }
+
+.login-wrapper {
+  margin-bottom: 3%;
+  text-align: center;
+  width: 240px;
+  height: 40px;
+  font-size: 1.6rem;
+  border-radius: 2em;
+  border: none;
+}
+
+.login-wrapper form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-wrapper .login-field {
+  text-align: center;
+}
+
+.signup-modal {
+  margin-bottom: 3%;
+  text-align: center;
+  width: 240px;
+  height: 40px;
+  font-size: 1.6rem;
+  border-radius: 2em;
+  border: none;
+}

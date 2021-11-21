@@ -1,11 +1,31 @@
 {% extends 'baseForIntro.html' %}
 
 {% block body %}
-<h1>Sign up</h1>
-<a href="{% url 'index' %}">뒤로가기 버튼</a>
-<form method="POST", action="">
-    {% csrf_token %}
-    {{regi_form.as_p}}
-    <input type="submit" value = "Sign up">
-</form>
+    <div class="modal-container">
+        <h2>Sign up</h2>
+        <div class="signup-modal">
+            <a href="{% url 'index' %}">Back</a>
+                <form method="POST" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    <!-- {{regi_form.as_p}} -->
+                    {% for field in regi_form %}
+                        <p>{{ field.label }}
+                        {{ field }}</p>
+                        
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                        
+                    {% if signup_form.non_field_errors %}
+                        {% for error in signup_form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                    <button>Sign Up</button>
+                </form>
+        </div>
+    </div>
 {% endblock %}
