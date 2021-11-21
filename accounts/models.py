@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-        #'BlazeUser'
+#'BlazeUser'
 class BlazeUser(AbstractBaseUser,PermissionsMixin):
     objects = UserManager()
 
@@ -59,6 +59,7 @@ class BlazeUser(AbstractBaseUser,PermissionsMixin):
         unique=True,
     )
     country = CountryField()
+    likes = models.ManyToManyField("main.Post",related_name="like_users")
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -74,3 +75,7 @@ class BlazeUser(AbstractBaseUser,PermissionsMixin):
 
         def __Str__(self):
             return self.email
+
+    @property
+    def total_likes(self):
+        return self.likes.count() #likes 컬럼의 값의 갯수를 센다
