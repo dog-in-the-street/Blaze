@@ -11,10 +11,10 @@
 </head>
 <body>
     <nav class="navMenu">
-        <div><a href='{% url "index" %}'>Blaze (로고)</a></div> 
+        <div class="main-logo"><a href='{% url "index" %}'><img src="{% static 'images/logo.png' %}" />Blaze (로고)</a></div> 
 
         {% if user.is_authenticated %}
-            {{ user.nickname }}님, 반갑습니다!
+            <div class="nickname">HI! {{ user.nickname }}</div>
         {% else %}
             로그인 하시려면 <a href="{% url 'index' %}">이곳</a>을 클릭하세요
         {% endif %}
@@ -27,7 +27,8 @@
 
         <div class="create_write_btn">
             <a href="{%url 'create' %}">
-                <img src="{% static 'i' %}">
+                +
+                <img src="{% static 'i' %}" />
             </a>
         </div>
 
@@ -55,6 +56,12 @@
     {% endblock %}
 
     <script>
+        // get flag emoji
+        const getFlagEmoji = (countryCode) => countryCode.toUpperCase().replace(/./g,
+            char => String.fromCodePoint(127397 + char.charCodeAt())
+        );
+        const flagReplace = document.querySelectorAll('[data-flag]');
+        flagReplace.forEach(s => s.innerHTML = getFlagEmoji(s.dataset.flag))
         
         // handle search input length
         const searchForm = document.querySelector('.search-form')

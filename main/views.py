@@ -14,11 +14,8 @@ def main(request):
     context['all_post'] = all_post
     categories = Category.objects.all()
     context['categories'] = categories
-    user = request.user
+   
     
-    user_flag = flag.flag(str(user.country))
-    print(user_flag)
-    context['flag'] = user_flag
     return render(request,'main.html',context)
 
 @login_required(login_url="/signin/")
@@ -73,9 +70,7 @@ def detail(request,post_id):
     context['comment_form'] = comment_form
     recomment_form = RecommentForm()
     context['recomment_form'] = recomment_form
-    user = request.user
-    user_flag = flag.flag(str(user.country))
-    context['flag'] = user_flag
+  
     return render(request,'post/detail.html',context)
 
 

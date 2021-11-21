@@ -1,6 +1,30 @@
+
+
+/* 초기화 코드 */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  min-height: 702px;
+
+}
+
+.navMenu{
+    display: flex;
+}
+
+.main-logo img{
+    width: 150px;
+    height: 55px;
+}
+
+
 #flag {
     font-size: 50px;
   }
+
   /* nav{
       position: absolute;
       width: 1440px;
