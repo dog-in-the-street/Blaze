@@ -6,7 +6,7 @@ from .forms import *
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-
+import flag
 
 def main(request):
     context = dict()
@@ -14,6 +14,11 @@ def main(request):
     context['all_post'] = all_post
     categories = Category.objects.all()
     context['categories'] = categories
+    user = request.user
+    
+    user_flag = flag.flag(str(user.country))
+    print(user_flag)
+    context['flag'] = user_flag
     return render(request,'main.html',context)
 
 @login_required(login_url="/signin/")
@@ -68,6 +73,9 @@ def detail(request,post_id):
     context['comment_form'] = comment_form
     recomment_form = RecommentForm()
     context['recomment_form'] = recomment_form
+    user = request.user
+    user_flag = flag.flag(str(user.country))
+    context['flag'] = user_flag
     return render(request,'post/detail.html',context)
 
 
@@ -115,7 +123,6 @@ def create_comment(request,post_id):
         temp_form = comment_form.save(commit=False)
         temp_form.post = Post.objects.get(id=post_id)
         temp_form.user = request.user
-        temp_form.save()
         return redirect('detail',post_id)
     else:
         comment_form = CommentForm()

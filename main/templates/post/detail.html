@@ -12,7 +12,8 @@
 <div class="icon">
     <button>send a message</button>
 </div>
-<p id="flag" data-flag="{{my_post.author.country}}"></p>
+
+<div id="flag">{{flag}}</div>
 <div>{{my_post.author.nickname}}</div>
 <div>{{my_post.title}}</div>
 
@@ -52,7 +53,7 @@
   
   {% for comment in my_post.comment.all %}
   <hr/>
-  <div>comment user : {{comment.user.nickname}} </div>
+  <div>comment user : {{flag}}{{comment.user.nickname}} </div>
   <div> comment : {{comment.content}}</div>
   <div> {{comment.created_at|date:"Y.m.d"}}
     {% if request.user == my_post.author %}
@@ -67,7 +68,7 @@
 <hr />
 {% for recom in comment.recomment.all %}
 
-<div> ==>{{recom.user.nickname}}</div>
+<div> ==>{{flag}}{{recom.user.nickname}}</div>
 <div>{{recom.content}}</div>
 {% if request.user == my_post.author %}
     <a href="{% url 'delete_recomment' recom.id my_post.id %}"><button id="deleteBtn" onclick="return confirm('Are you sure you want to delete this recomment?');">Delete</button></a>
