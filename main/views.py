@@ -57,8 +57,13 @@ def create(request):
 
 
 def detail(request,post_id):
+    context = dict()
+    
     my_post = get_object_or_404(Post, id=post_id)
-    return render(request,'post/detail.html',{'my_post':my_post})
+    context['my_post'] = my_post
+    comment_form = CommentForm()
+    context['comment_form'] = comment_form
+    return render(request,'post/detail.html',context)
 
 def update(request,post_id):
     my_post = get_object_or_404(Post,id=post_id)
@@ -87,28 +92,46 @@ def category(request,category_id):
     return render(request,'category/post_list.html',context)
 
 
-def create_comment(request, post_id):
-    filled_form = CommentForm(request.POST)
-    if filled_form.is_valid():
-        temp_form = filled_form.save(commit=False)
-        temp_form.post = Post.objects.get(id = post_id)
+
+def create_comment(request,post_id):
+    
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        temp_form = comment_form.save(commit=False)
+        temp_form.post = Post.objects.get(id=post_id)
+        temp_form.user = request.user
         temp_form.save()
-        return redirect('detail', post_id)
+        return redirect('detail',post_id)
     else:
         comment_form = CommentForm()
-        print("hi")
-        return redirect('detail', post_id)
-        
+        print("request error")
+
+    return redirect('detail',post_id)
+
+# def update_comment(request,com_id,post_id):
+#     my_com = get_object_or_404(Comment,id=com_id)
+#     if request.method == "POST":
+#         update_form = CommentForm(request.POST,instance=my_com)
+
+#         if update_form.is_valid():
+#             update_form.save(commit=False)
+#             update_form.post = Post.objects.get(id=post_id)
+#             update_form.user = request.user 
+#             return render(request,'post/detail.html',{'update_form':update_form})
+
+#     else:
+#         update_form = CommentForm(instance=my_com)
+#     return render(request,'post/detail.html')
+
 def search(request):
     context = dict()
-    post = request.POST.get('post',"")
+    post = request.POST.get("post","")
     if post:
-        search_post = Post.object.filter(title_icontains=post)| Post.object.filter(text_icontains=post)
+        search_post = Post.objects.filter(title__icontains=post)| Post.objects.filter(text__icontains=post)
         context['search_post']=search_post
         context['post']=post
         return render(request, 'post/search.html', context)
     else:
         return render(request, 'post/search.html')
-    
   
 

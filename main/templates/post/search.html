@@ -5,14 +5,16 @@
 
 <form method="POST">
     {% csrf_token %}
+   
     {% if not search_post %}
-    <h1>검색 결과 없음!</h1>
-    {% endif %}
+    <div>Looks like there aren’t any results for <b>“{{post}}”</b> 🥲.... Try double-checking your spelling or searching for a related topic. </div>
+    {% endif %} 
 
     {% for post in search_post %}
-<a href="{% url 'detail' post.id %}">
-    {{post.title}}
-    {{post.text}}
+    <a href="{% url 'detail' post.id %}">
+    <div>{{post.title}}</div>
+    <div>{{post.text}}</div>
+    <div>{{post.category}}</div>
 </a>
     
     {% endfor %}
