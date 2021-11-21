@@ -54,9 +54,11 @@ class Images(models.Model):
 
 
 class Comment(models.Model):
+  user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE, related_name='comment_user')
   post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
-  body = models.CharField('댓글 작성하기', max_length=150)
-  created_at = models.DateTimeField(auto_now=True)
+  content = models.TextField()
+  # 최초 생성 날짜만 보여줌
+  created_at = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
-      return self.body
+      return str(self.user)

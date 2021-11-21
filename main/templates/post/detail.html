@@ -17,10 +17,10 @@
     <button>send a message</button>
 </div>
 <p id="flag" data-flag="{{my_post.author.country}}"></p>
-{{my_post.author.nickname}}
-<br>{{my_post.title}}
+<div>{{my_post.author.nickname}}</div>
+<div>{{my_post.title}}</div>
 
-<br>{{my_post.text}}
+<div>{{my_post.text}}</div>
  
 {% if my_post.image %}
 {% for i in my_post.image.all %}
@@ -32,22 +32,18 @@
 <p>{{my_post.updated|date:"Y.m.d"}}</p>
 
 <form class="comment" method="POST" action="{% url 'create_comment' my_post.id %}">
-    {% csrf_token %}
-  {{comment_form}}
+   {% csrf_token %}
+   {{comment_form}}
   <button type="submit">comment</button>
   </form>
   
-  {% for comment in my_post.comment_set.all %}
-  
-  <p> review : {{comment.body}}</p>
-  <p> {{comment.updated_at}}
+  {% for comment in my_post.comment.all %}
+  <hr/>
+  <div> comment : {{comment.content}}</div>
+  <div> {{comment.created_at|date:"Y.m.d"}}
     <a href="% url 'update_review' my_post.id comment.id %">modify</a>
-  </p>
-  
-  {% for i in my_post.comment.all %}
-  {{i}}
-  {% endfor %}
-  
+  </div>
+  <hr />
   
   {% endfor %}
   
