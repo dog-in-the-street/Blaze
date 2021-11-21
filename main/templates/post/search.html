@@ -1,0 +1,24 @@
+{% extends 'baseForMain.html' %}
+{% load static %}
+
+{% block contents %}
+
+<form method="POST">
+    {% csrf_token %}
+    {% if not search_post %}
+    <h1>검색 결과 없음!</h1>
+    {% endif %}
+
+    {% for post in search_post %}
+<a href="{% url 'detail' post.id %}">
+    {{post.title}}
+    {{post.text}}
+</a>
+    
+    {% endfor %}
+</form>
+
+
+
+
+{% endblock contents %}

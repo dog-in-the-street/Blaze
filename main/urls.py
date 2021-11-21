@@ -18,7 +18,12 @@ urlpatterns = [
     path('delete/<int:post_id>', delete, name="delete"),
     path('update/<int:post_id>',update, name="update"),
     path('detail/<int:post_id>', detail, name="detail"),
-    path('category/<int:category_id>',category,name="category")
+    path('category/<int:category_id>',category,name="category"),
+    path('create_comment/<int:post_id>', create_comment, name="create_comment"),
+    path('search/',search,name="search"),
+    
+    # path('tasteapp/update_review/<int:post_id>/<int:com_id>', update_review, name="update_review")
+    
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 

@@ -31,11 +31,24 @@
 {% endif %}
 <p>{{my_post.updated|date:"Y.m.d"}}</p>
 
-
-
-
-
-{% endblock %}
-
-
-
+<form class="comment" method="POST" action="{% url 'create_comment' my_post.id %}">
+    {% csrf_token %}
+  {{comment_form}}
+  <button type="submit">comment</button>
+  </form>
+  
+  {% for comment in my_post.comment_set.all %}
+  
+  <p> review : {{comment.body}}</p>
+  <p> {{comment.updated_at}}
+    <a href="% url 'update_review' my_post.id comment.id %">modify</a>
+  </p>
+  
+  {% for i in my_post.comment.all %}
+  {{i}}
+  {% endfor %}
+  
+  
+  {% endfor %}
+  
+  {% endblock %}

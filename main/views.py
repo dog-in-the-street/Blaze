@@ -85,6 +85,30 @@ def category(request,category_id):
     context['category_post']  =category_post   
    
     return render(request,'category/post_list.html',context)
+
+
+def create_comment(request, post_id):
+    filled_form = CommentForm(request.POST)
+    if filled_form.is_valid():
+        temp_form = filled_form.save(commit=False)
+        temp_form.post = Post.objects.get(id = post_id)
+        temp_form.save()
+        return redirect('detail', post_id)
+    else:
+        comment_form = CommentForm()
+        print("hi")
+        return redirect('detail', post_id)
+        
+def search(request):
+    context = dict()
+    post = request.POST.get('post',"")
+    if post:
+        search_post = Post.object.filter(title_icontains=post)| Post.object.filter(text_icontains=post)
+        context['search_post']=search_post
+        context['post']=post
+        return render(request, 'post/search.html', context)
+    else:
+        return render(request, 'post/search.html')
     
   
 
