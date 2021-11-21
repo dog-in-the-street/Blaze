@@ -25,7 +25,7 @@ class Post(models.Model):
 
 
     def __str__(self) :
-        return "text : "+self.text
+        return self.text
 
     # class Meta:
     #     ordering = ['-created']
