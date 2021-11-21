@@ -61,7 +61,7 @@
         );
         const flagReplace = document.querySelectorAll('[data-flag]');
         flagReplace.forEach(s => s.innerHTML = getFlagEmoji(s.dataset.flag))
-        
+        console.log(getFlagEmoji('US'))
         // handle search input length
         const searchForm = document.querySelector('.search-form')
         const searchInput = document.querySelector('#search-input');
