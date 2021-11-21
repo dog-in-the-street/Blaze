@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import *
 from .forms import *
 from django.forms import modelformset_factory
+from django.contrib.auth.decorators import login_required
 
 
 def main(request):
@@ -14,6 +15,7 @@ def main(request):
     context['categories'] = categories
     return render(request,'main.html',context)
 
+@login_required(login_url="/signin/")
 def create(request):
     # 하나의 modelform 을 여러번 쓸 수 있음. 모델, 모델폼, 몇 개의 폼을 띄울건지 갯수 
     ImageFormSet = modelformset_factory(Images,form=ImageForm, extra=5)
@@ -63,20 +65,31 @@ def detail(request,post_id):
     context['my_post'] = my_post
     comment_form = CommentForm()
     context['comment_form'] = comment_form
+    recomment_form = RecommentForm()
+    context['recomment_form'] = recomment_form
     return render(request,'post/detail.html',context)
 
+
+
+
+@login_required(login_url="/signin/")
 def update(request,post_id):
     my_post = get_object_or_404(Post,id=post_id)
     if request.method == "POST":
         update_form = PostForm(request.POST,instance=my_post)
 
         if update_form.is_valid():
+            update_form.save(commit=False)
+            update_form.author = request.user
+            update_form.post = my_post
             update_form.save()
-            return redirect('main')
+            return redirect('detail',post_id)
 
     update_form = PostForm(instance=my_post)
     return render(request,'post/update.html',{'update_form':update_form})
 
+
+@login_required(login_url="/signin/")
 def delete(request,post_id):
     my_post = get_object_or_404(Post, id=post_id)
     my_post.delete()
@@ -93,6 +106,7 @@ def category(request,category_id):
 
 
 
+@login_required(login_url="/signin/")
 def create_comment(request,post_id):
     
     if request.method == "POST":
@@ -108,20 +122,39 @@ def create_comment(request,post_id):
 
     return redirect('detail',post_id)
 
-# def update_comment(request,com_id,post_id):
-#     my_com = get_object_or_404(Comment,id=com_id)
-#     if request.method == "POST":
-#         update_form = CommentForm(request.POST,instance=my_com)
 
-#         if update_form.is_valid():
-#             update_form.save(commit=False)
-#             update_form.post = Post.objects.get(id=post_id)
-#             update_form.user = request.user 
-#             return render(request,'post/detail.html',{'update_form':update_form})
 
-#     else:
-#         update_form = CommentForm(instance=my_com)
-#     return render(request,'post/detail.html')
+@login_required(login_url="/signin/")
+def delete_comment(request,com_id,post_id):
+    my_com = get_object_or_404(Comment,id=com_id)
+    my_com.delete()
+    return redirect('detail',post_id)
+
+@login_required(login_url="/signin/")
+def create_recomment(request,recom_id,post_id):
+    my_post = get_object_or_404(Post,id=post_id)
+    my_com = get_object_or_404(Comment,id=recom_id)
+    if request.method =="POST":
+        recom_form = RecommentForm(request.POST)
+        temp_form = recom_form.save(commit=False)
+        temp_form.post = my_post
+        temp_form.comment = my_com 
+        temp_form.user = request.user
+        temp_form.save()
+        return redirect('detail',post_id)
+    else:
+        recom_form = RecommentForm()
+
+    return redirect('detail',post_id)
+
+
+
+
+@login_required(login_url="/signin/")
+def delete_recomment(request,recom_id,post_id):
+    my_recom = get_object_or_404(Recomment,id=recom_id)
+    my_recom.delete()
+    return redirect('detail',post_id)
 
 def search(request):
     context = dict()

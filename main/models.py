@@ -62,3 +62,12 @@ class Comment(models.Model):
 
   def __str__(self):
       return str(self.user)
+
+
+
+    
+class Recomment(models.Model):
+    user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE,related_name="recom_user")
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name="recom_post")
+    comment = models.ForeignKey(Comment,on_delete=models.CASCADE,related_name="recomment")
+    content = models.TextField('recomment')
