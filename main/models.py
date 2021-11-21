@@ -5,6 +5,8 @@ from django.db import models
 from django.db.models import fields
 from django.template.defaultfilters import slugify
 from accounts.models import BlazeUser
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 
 class Category(models.Model):
@@ -20,15 +22,29 @@ class Post(models.Model):
     title = models.CharField(max_length=30, null=True)
     text = models.TextField(blank=True)
     # image = models.ImageField(null = True, blank = True )
-    updated = models.DateTimeField(auto_now=True, null=True)
+    # updated = models.DateTimeField(auto_now=True, null=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    registered_date = models.DateTimeField( auto_now_add=True , verbose_name='registration time')
+
+    @property
+    def created_string(self):
+        time = datetime.now(tz=timezone.utc) - self.registered_date
+
+        if time < timedelta(minutes=1):
+            return 'just now'
+        elif time < timedelta(hours=1):
+            return str(int(time.seconds / 60)) + 'minutes ago'
+        elif time < timedelta(days=1):
+            return str(int(time.seconds / 3600)) + 'hours ago'
+        elif time < timedelta(days=7):
+            time = datetime.now(tz=timezone.utc).date() - self.registered_date.date()
+            return str(time.days) + 'days ago'
+        else:
+            return False
 
 
-    def __str__(self) :
-        return "text : "+self.text
 
-    # class Meta:
-    #     ordering = ['-created']
+
 
 
 def get_image_filename(instance, filename):

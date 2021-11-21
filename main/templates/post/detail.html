@@ -18,6 +18,14 @@
 </div>
 <p id="flag" data-flag="{{my_post.author.country}}"></p>
 {{my_post.author.nickname}}
+
+
+{% if my_post.created_string == False %}
+<div>{{ my_post.registered_date|date:'y.m.d'}}</div>
+{% else %}
+<div>{{ my_post.created_string }}</div>
+{% endif %}
+
 <br>{{my_post.title}}
 
 <br>{{my_post.text}}

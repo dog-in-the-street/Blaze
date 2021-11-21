@@ -3,19 +3,21 @@ from django.db.models import fields
 from django.forms.models import construct_instance
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.defaultfilters import time
 # from django.views.generic.list import ListView
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.views.generic.detail import DetailView
-from .models import Category, Images, Post
+from .models import Category, Images, Post 
 from .forms import ImageForm, PostForm
 from django.forms import modelformset_factory
 
-import flag
+
 
 from django.core.paginator import Paginator
 
 def main(request):
     context = dict()
+
     all_post = Post.objects.all()
     context['all_post'] = all_post
     flag = request.user.country

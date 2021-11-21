@@ -21,8 +21,14 @@
                 
               <p id="flag" data-flag="{{post.author.country}}"></p>
                   
-                    <p>{{post.author.nickname}}</p>
-                    <p>{{post.title}}</p>
+                    <div>{{post.author.nickname}}</div>
+                    {% if post.created_string == False %}
+                    <div>{{ post.registered_date|date:'y.m.d' }}</div>
+                    {% else %}
+                    <div>{{ post.created_string }}</div>
+                    {% endif %}
+
+                    <div>{{post.title}}</div>
                  
                     <div class="post.text">{{post.text}}</div>
                     
@@ -33,7 +39,7 @@
                         {% endfor %}
 
                     {% endif %}
-                    <p>{{post.updated|date:"Y.m.d.h"}}</p>
+                    
                     <p>{{post.category}}</p>
                 
                 </div>
