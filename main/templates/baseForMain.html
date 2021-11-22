@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,55 +9,70 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/baseForMain.css' %}">
     {% block head %}{% endblock %}
-    
 </head>
+
 <body>
     <nav class="navMenu">
-        <div><a href='{% url "index" %}'>Blaze (로고)</a></div> 
-
-        {% if user.is_authenticated %}
-            {{ user.nickname }}님, 반갑습니다!
-        {% else %}
-            로그인 하시려면 <a href="{% url 'index' %}">이곳</a>을 클릭하세요
-        {% endif %}
-
-    
-        <div class="create_write_btn">
-            <a href="{%url 'create' %}">
-                <img src="{% static 'i' %}">
-                
-                    
-                </div>
-            </a>
-        </div>
+        <div class="main-logo"><a href='{% url "index" %}'><img src="{% static 'images/logo.png' %}" /></a></div>
+        <div class="nav-content">
+            {% if user.is_authenticated %}
+            <div class="nickname">HI! {{ user.nickname }}</div>
+            {% else %}
+            <button class="nav-login"> <a href="{% url 'signin' %}">login</a></button>
+            {% endif %}
 
 
-    </nav>
+            <form method="POST" class="search-form" action="{% url 'search' %}">
+                {%csrf_token%}
+                <input type="search" placeholder="Title or Content" aria-label="Search" name="post" value="{{post}}"
+                    id="search-input" id="search">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
 
-    <div class= category>
+            <div class="create_write_btn">
+                <a href="{%url 'create' %}">
+                   
+                    <img src="{% static 'images/create-btn.svg' %}" />
+                </a>
+            </div>
 
 
-    </div>
-
-    <div class="contents">
-        <div class="create_write2">
-
-            <div class="create_btn2">
-                Create new post!
+            <div class="alarm">
+                <a href="">
+                    <div class="alarm_btn">
+                        <icon />
+                    </div>
+                </a>
             </div>
         </div>
+    </nav>
 
-
-    </div>
+   
     {% block contents %}
     {% endblock %}
 
     <script>
+        // get flag emoji
         const getFlagEmoji = (countryCode) => countryCode.toUpperCase().replace(/./g,
             char => String.fromCodePoint(127397 + char.charCodeAt())
         );
         const flagReplace = document.querySelectorAll('[data-flag]');
         flagReplace.forEach(s => s.innerHTML = getFlagEmoji(s.dataset.flag))
+
+        // handle search input length
+        const searchForm = document.querySelector('.search-form')
+        const searchInput = document.querySelector('#search-input');
+        const handleInputValue = (e) => {
+
+            console.log(searchInput.value)
+            const value = searchInput.value.length;
+            if (value === 0 || value < 3) {
+                e.preventDefault();
+                alert("Please insert more than 3 characters!")
+            }
+        }
+        searchForm.addEventListener("submit", handleInputValue)
+
     </script>
 
     {% block script %}
@@ -65,4 +81,5 @@
 
 
 </body>
+
 </html>

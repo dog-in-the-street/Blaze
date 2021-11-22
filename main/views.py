@@ -1,32 +1,25 @@
 from django.db import models
 from django.db.models import fields
-from django.forms.models import construct_instance
-from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from django.template.defaultfilters import time
-# from django.views.generic.list import ListView
-# from django.views.generic.edit import CreateView, UpdateView, DeleteView
-# from django.views.generic.detail import DetailView
-from .models import Category, Images, Post 
-from .forms import ImageForm, PostForm
+from .models import *
+from .forms import *
 from django.forms import modelformset_factory
-
-
-
-from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+import flag
 
 def main(request):
     context = dict()
 
     all_post = Post.objects.all()
     context['all_post'] = all_post
-    flag = request.user.country
-    context['flag'] = flag
-    print(flag.flag)
     categories = Category.objects.all()
     context['categories'] = categories
+   
+    
     return render(request,'main.html',context)
 
+@login_required(login_url="/signin/")
 def create(request):
     # 하나의 modelform 을 여러번 쓸 수 있음. 모델, 모델폼, 몇 개의 폼을 띄울건지 갯수 
     ImageFormSet = modelformset_factory(Images,form=ImageForm, extra=5)
@@ -69,51 +62,39 @@ def create(request):
                   {'postForm': postForm, 'formset': formset})
 
 
-# def create(request):
-#     create_form = PostForm(request.POST)
-#     ImageFormSet = modelformset_factory(Images,form=ImageForm, extra=5)
-
-#     if request.method =="POST":
-#         create_form = PostForm(request.POST,request.FILES)
-
-#         formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
-#         if create_form.is_valid() and formset.is_valid():
-#             temp_form = create_form.save(commit=False)
-#             temp_form.author = request.user
-#             temp_form.save()
-
-#             for form in formset.cleaned_data:
-
-#                 if form:
-#                     image = form['image']
-#                     photo = Images(post=temp_form, image=image)
-#                     photo.save()
-
-#             return redirect('main')
-#     else:
-#         create_form = PostForm()
-#         formset = ImageFormSet(queryset=Images.objects.none())
-
-
-#     return render(request,'post/create.html',{'create_form':create_form, 'ImageFormSet': ImageFormSet})
-
-
 def detail(request,post_id):
+    context = dict()
+    
     my_post = get_object_or_404(Post, id=post_id)
-    return render(request,'post/detail.html',{'my_post':my_post})
+    context['my_post'] = my_post
+    comment_form = CommentForm()
+    context['comment_form'] = comment_form
+    recomment_form = RecommentForm()
+    context['recomment_form'] = recomment_form
+  
+    return render(request,'post/detail.html',context)
 
+
+
+
+@login_required(login_url="/signin/")
 def update(request,post_id):
     my_post = get_object_or_404(Post,id=post_id)
     if request.method == "POST":
         update_form = PostForm(request.POST,instance=my_post)
 
         if update_form.is_valid():
+            update_form.save(commit=False)
+            update_form.author = request.user
+            update_form.post = my_post
             update_form.save()
-            return redirect('main')
+            return redirect('detail',post_id)
 
     update_form = PostForm(instance=my_post)
     return render(request,'post/update.html',{'update_form':update_form})
 
+
+@login_required(login_url="/signin/")
 def delete(request,post_id):
     my_post = get_object_or_404(Post, id=post_id)
     my_post.delete()
@@ -127,6 +108,128 @@ def category(request,category_id):
     context['category_post']  =category_post   
    
     return render(request,'category/post_list.html',context)
+
+
+
+@login_required(login_url="/signin/")
+def create_comment(request,post_id):
     
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        temp_form = comment_form.save(commit=False)
+        temp_form.post = Post.objects.get(id=post_id)
+        temp_form.user = request.user
+        return redirect('detail',post_id)
+    else:
+        comment_form = CommentForm()
+        print("request error")
+
+    return redirect('detail',post_id)
+
+
+
+@login_required(login_url="/signin/")
+def delete_comment(request,com_id,post_id):
+    my_com = get_object_or_404(Comment,id=com_id)
+    my_com.delete()
+    return redirect('detail',post_id)
+
+@login_required(login_url="/signin/")
+def create_recomment(request,recom_id,post_id):
+    my_post = get_object_or_404(Post,id=post_id)
+    my_com = get_object_or_404(Comment,id=recom_id)
+    if request.method =="POST":
+        recom_form = RecommentForm(request.POST)
+        temp_form = recom_form.save(commit=False)
+        temp_form.post = my_post
+        temp_form.comment = my_com 
+        temp_form.user = request.user
+        temp_form.save()
+        return redirect('detail',post_id)
+    else:
+        recom_form = RecommentForm()
+
+    return redirect('detail',post_id)
+
+
+
+
+@login_required(login_url="/signin/")
+def delete_recomment(request,recom_id,post_id):
+    my_recom = get_object_or_404(Recomment,id=recom_id)
+    my_recom.delete()
+    return redirect('detail',post_id)
+
+def search(request):
+    context = dict()
+    post = request.POST.get("post","")
+    if post:
+        search_post = Post.objects.filter(title__icontains=post)| Post.objects.filter(text__icontains=post)
+        context['search_post']=search_post
+        context['post']=post
+        return render(request, 'post/search.html', context)
+    else:
+        return render(request, 'post/search.html')
   
+# chat
+def lobby(request):
+    # 기본 유저 정보
+    context = dict()
+    user_flag = flag.flag("KR")
+    context['flag'] = user_flag
+    
+    # chatroom list
+    # 현재 로그인한 유저
+    logged_user = request.user
+    context['logged_user'] = logged_user
+
+    # 현재 로그인한 유저(나)가 포함된 채팅룸 가져오기.  
+    # chatrooms = list(logged_user.user_chatroom.all())
+
+
+    # through 활용해보기
+    chatroom_lists = ChatRoomUser.objects.filter(user=logged_user) # 객체 자체를 가져오는 것.
+    context['chatroom_lists'] = chatroom_lists
+    
+    
+    
+    
+
+    
+    
+    
+    return render(request, 'chat/lobby.html', context)
+
+
+def room(request, room_name):
+    recent_messages = Message.objects.filter(room=room_name).order_by('timestamp')
+    return render(request, 'chat/room.html', {
+        'room_name' : room_name,
+        'recent_messages' : recent_messages,
+    })
+
+
+
+
+
+
+@login_required(login_url="/signin/")
+def like(request,post_id):
+    post = get_object_or_404(Post,id=post_id)
+    user = request.user
+    if user in post.like_users.all():
+        post.like_users.remove(user)
+        liked = False
+        print(liked)
+    else:
+        post.like_users.add(user)
+        liked = True
+        print(liked)
+    context = {
+        'liked':liked,
+        'count':post.like_users.count()
+    }
+
+    return JsonResponse(context)
+
 

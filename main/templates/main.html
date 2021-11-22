@@ -1,20 +1,25 @@
+{% extends 'baseForMain.html' %}
 
-    {% extends 'baseForMain.html' %}
-
-    {% load static %}
-    {% block head %} <link rel="stylesheet" href="{% static 'flags/sprite-hq.css' %}">
-    {% endblock %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
 
 
-    {% block contents %}
-    <div class="category">
+
+{% block contents %}
+<div class="content-wrapper">
+    <div class="category-wrapper">
+        <div class="category-title">Category</div>
         <div class="all"><a href="{% url 'main' %}">All</a></div>
         {% for category in categories %}
-       <div class="category"><a href="{% url 'category' category.id %}">{{category}}</a></div> 
+        <div class="category"><a href="{% url 'category' category.id %}">{{category}}</a></div>
         {% endfor %}
 
     </div>
-            {% for post in all_post %}
+    <div class="post-wrapper">
+        {% for post in all_post %}
+
+        <div class="post-container">
             <a href="{% url 'detail' post.id %}">
                 <div class="all_post">
                    
@@ -34,19 +39,29 @@
                     
                     {% if post.image %}
                         {% for i in post.image.all %}
-                        <img src="{{i.image.url}}"/>
+                        <img src="{{i.image.url}}" />
 
                         {% endfor %}
 
-                    {% endif %}
-                    
-                    <p>{{post.category}}</p>
-                
+                        {% endif %}
+
+                        <p>{{post.category}}</p>
+                    </div>
                 </div>
-            </a>    
-            
-            {%endfor%}
+            </a>
 
-    {% endblock %}
+        </div>
+        {%endfor%}
+    </div>
+
+</div>
 
 
+{% endblock %}
+
+
+
+
+{% block script %}
+
+{% endblock %}
