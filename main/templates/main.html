@@ -42,17 +42,25 @@
                         {% for i in post.image.all %}
                         <img src="{{i.image.url}}" />
 
-                        {% endfor %}
+                    {% if post.image %}
+                    {% for i in post.image.all %}
+                    <img src="{{i.image.url}}" width="200px" height="200px"/>
 
-                        {% endif %}
+                    {% endfor %}
 
-                        <div class="post-category">{{post.category}}</p>
+                    {% endif %}
+                    <div class="post-body-bottom">
+                        <div class="post-like-count"><img src="{% static 'images/fire.svg' %}"/>{{post.like_users.count}}</div>
+                        <div class="post-comment">Comment</div>
                     </div>
+
+                </div>
+                <div class="post-category">{{post.category}}</p>
                 </div>
             </a>
 
+
         </div>
-    </div>
         {% endfor %}
     </div>
 

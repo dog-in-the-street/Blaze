@@ -71,7 +71,7 @@ def detail(request,post_id):
     context['comment_form'] = comment_form
     recomment_form = RecommentForm()
     context['recomment_form'] = recomment_form
-  
+
     return render(request,'post/detail.html',context)
 
 
@@ -103,6 +103,8 @@ def delete(request,post_id):
 
 def category(request,category_id):
     context = dict()
+    categories = Category.objects.all()
+    context['categories'] =categories
     category = Category.objects.get(id=category_id) 
     category_post = Post.objects.filter(category=category).order_by('-id')
     context['category_post']  =category_post   
@@ -119,6 +121,7 @@ def create_comment(request,post_id):
         temp_form = comment_form.save(commit=False)
         temp_form.post = Post.objects.get(id=post_id)
         temp_form.user = request.user
+        temp_form.save()
         return redirect('detail',post_id)
     else:
         comment_form = CommentForm()

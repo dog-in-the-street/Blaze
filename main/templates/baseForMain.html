@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/baseForMain.css' %}">
+    <link rel="stylesheet" type="text/css"  href="{% static 'css/baseForMain.css' %}">
     {% block head %}{% endblock %}
 </head>
 
 <body>
     <nav class="navMenu">
-        <div class="main-logo"><a href='{% url "index" %}'><img src="{% static 'images/logo.png' %}" /></a></div>
+        <div class="main-logo"><a href='{% url "index" %}'><img src="{% static 'images/logo.png' %}" alt="logo-image" title="blaze!"/></a></div>
         <div class="nav-content">
             {% if user.is_authenticated %}
             <div class="nickname">HI! {{ user.nickname }}</div>
@@ -32,7 +32,7 @@
             <div class="create_write_btn">
                 <a href="{%url 'create' %}">
                    
-                    <img src="{% static 'images/create-btn.svg' %}" />
+                    <img src="{% static 'images/create-btn.svg' %}" alt="create-btn" />
                 </a>
             </div>
 
