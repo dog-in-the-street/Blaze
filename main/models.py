@@ -96,6 +96,8 @@ class Message(models.Model):
 
     class Meta:
         get_latest_by = ['timestamp']
+
+
 class Comment(models.Model):
   user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE, related_name='comment_user')
   post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
