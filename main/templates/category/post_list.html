@@ -6,7 +6,7 @@
 {% endblock %}
 <a href="{{request.META.HTTP_REFERER}}">Go back</a>
 
-   
+
 {% block contents %}
 <div class="content-wrapper">
     <div class="category-wrapper">
@@ -21,43 +21,44 @@
         {% for post in category_post %}
 
         <div class="post-container">
-            
-         
-                    <a href="{% url 'detail' post.id %}">
-                    <div class="post-nickname">
+
+
+            <a href="{% url 'detail' post.id %}">
+                <div class="post-nickname">
                     <div class="nickname-flag">
                         <p id="flag" data-flag="{{post.author.country}}"></p>
                     </div>
-                        <div class="ninkname-data">
-                            <div class="author">{{post.author.nickname}}</div>
-                            <div class="updated-date">{{post.updated|date:"Y.m.d.h"}}</div>
-                        </div>
+                    <div class="ninkname-data">
+                        <div class="author">{{post.author.nickname}}</div>
+                        <div class="updated-date">{{post.updated|date:"Y.m.d.h"}}</div>
                     </div>
-                    <div class="post-body">
-                        <div class="post-title">{{post.title}}</div>
+                </div>
+                <div class="post-body">
+                    <div class="post-title">{{post.title}}</div>
 
-                        <div class="post-text">{{post.text}}</div>
-                       
-                        {% if post.image %}
-                        {% for i in post.image.all %}
-                        <img src="{{i.image.url}}" />
+                    <div class="post-text">{{post.text}}</div>
 
-                        {% endfor %}
+                    {% if post.image %}
+                    {% for i in post.image.all %}
+                    <img src="{{i.image.url}}" />
 
-                        {% endif %}
+                    {% endfor %}
 
-                        <div class="post-body-bottom">
-                            <div class="post-like-count"><img src="{% static 'images/fire.svg' %}"/>&nbsp;&nbsp;{{post.like_users.count}}</div>
-                            <div class="post-comment">Comment</div>
-                        </div>
+                    {% endif %}
 
-                        <div class="post-category">{{post.category}}</p>
+                    <div class="post-body-bottom">
+                        <div class="post-like-count"><img
+                                src="{% static 'images/fire.svg' %}" />&nbsp;&nbsp;{{post.like_users.count}}</div>
+                        <div class="post-comment">Comment</div>
+                    </div>
+
+                    <div class="post-category">{{post.category}}</p>
                     </div>
                 </div>
             </a>
 
-      
-    </div>
+
+        </div>
         {% endfor %}
     </div>
 
