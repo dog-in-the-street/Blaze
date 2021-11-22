@@ -2,9 +2,10 @@
 
 {% load static %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
 
+{% endblock %}
 
 {% block contents %}
 <div class="content-wrapper">
@@ -24,7 +25,7 @@
                 <div class="all_post">
                    
                 
-              <p id="flag" data-flag="{{post.author.country}}"></p>
+                <p id="flag" data-flag="{{post.author.country}}"></p>
                   
                     <div>{{post.author.nickname}}</div>
                     {% if post.created_string == False %}
@@ -45,13 +46,14 @@
 
                         {% endif %}
 
-                        <p>{{post.category}}</p>
+                        <div class="post-category">{{post.category}}</p>
                     </div>
                 </div>
             </a>
 
         </div>
-        {%endfor%}
+    </div>
+        {% endfor %}
     </div>
 
 </div>
