@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from .models import Images, Post
+from .models import *
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -20,3 +20,19 @@ class ImageForm(forms.ModelForm):
         labels = {
             'image': ('Image'),
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)
+
+
+
+class RecommentForm(forms.ModelForm):
+
+   class Meta:
+        model = Recomment
+        fields = ('content',)
+
+     

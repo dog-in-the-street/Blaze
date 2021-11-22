@@ -2,8 +2,8 @@
     {% extends 'baseForMain.html' %}
 
     {% load static %}
-    {% block head %} <link rel="stylesheet" href="{% static 'flags/sprite-hq.css' %}">
-    {% endblock %}
+    
+
 
 
     {% block contents %}
@@ -17,10 +17,10 @@
         {% for post in all_post %}
             <a href="{% url 'detail' post.id %}">
                 <div class="all_post">
-                    
-                
+                   
+             
                 <p id="flag" data-flag="{{post.author.country}}"></p>
-                    
+                
                     <p>{{post.author.nickname}}</p>
                     <p>{{post.title}}</p>
                     
@@ -41,7 +41,18 @@
         
         {%endfor%}
 
+
+           
+            
     {% endblock %}
 
     
+
+
+
+{% block script %}
+
+{% endblock %}
+
+
 

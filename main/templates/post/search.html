@@ -1,0 +1,26 @@
+{% extends 'baseForMain.html' %}
+{% load static %}
+
+{% block contents %}
+
+<form method="POST">
+    {% csrf_token %}
+   
+    {% if not search_post %}
+    <div>Looks like there aren’t any results for <b>“{{post}}”</b> 🥲.... Try double-checking your spelling or searching for a related topic. </div>
+    {% endif %} 
+
+    {% for post in search_post %}
+    <a href="{% url 'detail' post.id %}">
+    <div>{{post.title}}</div>
+    <div>{{post.text}}</div>
+    <div>{{post.category}}</div>
+</a>
+    
+    {% endfor %}
+</form>
+
+
+
+
+{% endblock contents %}

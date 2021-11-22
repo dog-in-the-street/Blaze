@@ -21,7 +21,15 @@ urlpatterns = [
     # chat
     path('lobby/', lobby, name="lobby"),
     path('chat/<str:room_name>/', room, name="room"),
-    path('category/<int:category_id>',category,name="category")
+    path('detail/<int:post_id>/like/',like,name="like"),
+    path('category/<int:category_id>',category,name="category"),
+    path('create_comment/<int:post_id>', create_comment, name="create_comment"),
+    path('delete_comment/<int:com_id>/<int:post_id>',delete_comment,name="delete_comment"),
+    path('create_recomment/<int:recom_id>/<int:post_id>',create_recomment,name="create_recomment"),
+    path('delete_recomment/<int:recom_id>/<int:post_id>',delete_recomment,name="delete_recomment"),
+    path('search/',search,name="search"),
+
+    
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 
