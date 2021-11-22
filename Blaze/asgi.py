@@ -1,5 +1,5 @@
 """
-ASGI config for demo project.
+ASGI config for project project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -9,8 +9,18 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 
 import os
 
+from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
+import main.routing
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Blaze.settings")
 
-application = get_asgi_application()
+application = ProtocolTypeRouter({
+  "http": get_asgi_application(),
+  "websocket": AuthMiddlewareStack(
+        URLRouter(
+            main.routing.websocket_urlpatterns
+        )
+    ),
+})
