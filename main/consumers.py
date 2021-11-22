@@ -1,12 +1,9 @@
 # 모든 요청을 받아들이는 비동기적인 WebSocket 소비자 역할을 하게된다. 
 # 메시지를 클라이언트(브라우저)로부터 받아서 다시 클라이언트에게 전달하는 기능
-
-# AsyncWebsocketConsumer를 사용함으로써 비동기적으로 함수가 동작하도록 함.
-# 문제는 비동기적으로 동작하면 데이터베이스에 접근하는 것에 제한이 생기기 때문에 다른 조치가 필요함. 
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from .models import Message
+from .models import BlazeUser, ChatRoom, Message
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -37,10 +34,28 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # save new messages
         @database_sync_to_async
-        def save_message (self, room_name, user, message):
-            return Message.objects.create(room=room_name, author=user, context=message)
-
-        await save_message(self, room_name, user, message)
+        def save_message (self, user, room_name, message):
+            # 채팅룸
+            # ChatRoom에서 해당 이름이 없으면 ChatRoom을 새로 만들고 메시지 그 안에 넣기 
+            chatroom_data, flag = ChatRoom.objects.get_or_create(chatroom_name=room_name)
+            userForChatRoom = BlazeUser.objects.get(nickname=user.nickname)
+            # flag가 True인 경우에는 인스턴스를 새로 만들어줌(create). False인 경우에는 이미 있는 인스턴스를 가져옴(get)
+            if flag:
+                # ChatRoom instance를 새로 만들어줬으니까 Message를 그 안에 넣어주기만 하면 됨. 
+                Message.objects.create(chatroom=chatroom_data, author=user, room=room_name, context=message)
+                # ChatRoom에서 User 정보 연결해주기(ManyToMany).
+                chatroom_data.user.add(userForChatRoom)
+                # 메시지 추가될 때마다 연결된 chatroom 수정하기(updated 시간 기록하기 위해서)
+                chatroom_data.save()
+            else:
+                # 원래 해당 room_name을 가진 ChatRoom이 있기 때문에 Message만 추가해주면 됨.
+                Message.objects.create(chatroom=chatroom_data, author=user, room=room_name, context=message)
+                # ChatRoom에서 User 정보 연결해주기(ManyToMany).
+                chatroom_data.user.add(userForChatRoom)
+                # 메시지 추가될 때마다 연결된 chatroom 수정하기(updated 시간 기록하기 위해서)
+                chatroom_data.save()
+                
+        await save_message(self, user, room_name, message);
 
         
         # Send message to room group
@@ -49,7 +64,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             {
                 'type': 'chat_message',
                 'message': message,
-                'user': user.username
+                'user': user.nickname
             }
         )
 

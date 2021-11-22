@@ -54,8 +54,38 @@ class Images(models.Model):
 
 
 # chat
+# 두 개의 User에 각각 여러 개의 ChatRoom이 연결됨.
+class ChatRoom(models.Model):
+    user = models.ManyToManyField(
+        BlazeUser, 
+        related_name='user_chatroom', 
+        through='ChatRoomUser',
+        through_fields=('chatroom', 'user')) # ManyToMany가 선언된 모델(source) / 대상 모델(target)
+
+    chatroom_name = models.CharField(max_length=50, null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, null=True) # 채팅방이 최근에 업데이트 된 시간 
+
+    def __str__(self) :
+        return self.chatroom_name
+
+    # 채팅방 리스트 나열할 때 최신순이 위로 가도록 정렬.
+    class Meta:
+        ordering = ['-updated']
+
+
+# ChatRoom에서 through로 사용하는 class 
+class ChatRoomUser(models.Model):
+    user = models.ForeignKey(BlazeUser, on_delete=models.CASCADE)
+    chatroom = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'ChatRoomUser'
+        
+    
+# 하나의 ChatRoom에 대해서 여러 개의 Message가 연결됨. 
 class Message(models.Model):
-    author = models.ForeignKey(BlazeUser, on_delete=models.CASCADE, related_name='user_chat')
+    chatroom = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='chatroom')
+    author = models.ForeignKey(BlazeUser, on_delete=models.CASCADE, related_name='user_message')
     room = models.CharField(max_length=50, null=True, blank=True)
     context = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -64,3 +94,5 @@ class Message(models.Model):
         return str(self.room) + '/' + str(self.author) + '/' + str(self.timestamp)
 
 
+    class Meta:
+        get_latest_by = ['timestamp']

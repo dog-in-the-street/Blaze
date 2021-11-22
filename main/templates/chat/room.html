@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Room</title>
-</head>
-<body>
+{% extends 'baseForMain.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block contents %}
     <textarea id="chat-log" cols="100" rows="20">
         {% for message in recent_messages %}
-        {{ message.author }}: {{ message.context}}
+        {{ message.author.nickname }}: {{ message.context}}
         {% endfor %}
     </textarea><br/>
     <input id="chat-message-input" type="text" size="100"/><br/>
@@ -21,9 +18,14 @@
         {{ message }}
     {% endfor %}
 
+    
+{% endblock %}
+
+{% block script %}
     <script>
         // websocket 객체 생성
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
@@ -33,18 +35,17 @@
         );
 
 
-
         // 서버에서 데이터를 수신해서 textarea에 추가함.
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += ('{{ user }}: ' + data.message + '\n'); // user는 현재 로그인 중인 유저
+            document.querySelector('#chat-log').value += ('{{ user.nickname }}: ' + data.message + '\n'); // user는 현재 로그인 중인 유저
         };
         
         // 비정상적인 종료시에 (비동기니까 서버 연결에 민감)
         chatSocket.onclose = function(e) {
             console.log('Chat socket closed unexpectedly');
         }
-    
+
         // enter키 활성화
         document.querySelector('#chat-message-input').focus();
         document.querySelector('#chat-message-input').onkeyup = function(e) {
@@ -52,7 +53,7 @@
                 document.querySelector('#chat-message-submit').click();
             }
         };
-    
+
         // 입력한 메시지 서버로 보내준 뒤에 초기화
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
@@ -63,5 +64,4 @@
             messageInputDom.value = '';
         };
     </script>
-</body>
-</html>
+{% endblock %}

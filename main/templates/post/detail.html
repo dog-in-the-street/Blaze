@@ -14,7 +14,7 @@
 
 <!-- user가 쓴 글이 아닐 때 더보기 클릭하면 -->
 <div class="icon">
-    <button>send a message</button>
+    <button id="{{ post.author.nickname }}" class="userNameForChat" onclick="CreateChatUrl(this.id)">send a message</button>
 </div>
 <p id="flag" data-flag="{{my_post.author.country}}"></p>
 {{my_post.author.nickname}}
@@ -38,4 +38,29 @@
 {% endblock %}
 
 
+{% block script %}
+    <script>
+        // userName을 눌렀을 때 roomName 변수 할당하고 url 정보 수정.
+        function CreateChatUrl(e) {
+            let firstUser = "{{ user }}";
+            let secondUser = e;
+            let userArr = [firstUser, secondUser]; // 현재 로그인한 유저와 선택한 유저를 배열에 넣기
+            // 채팅방 이름을 아무렇게나 지으면 안되고 채팅 참가자를 어떠한 순서에 따라서 url을 만들어야 할듯. 
+            userArr.sort(); // 정렬
+            
+            let userA = userArr[0];
+            let userB = userArr[1];
+            let roomName = userA + userB;
+            let roomNameForUrl = '';
 
+            for (let i=0; i < roomName.length; i++) {
+                let ascii = String(roomName.charCodeAt(i)); // ascii로 변환한 뒤에 String로 형변환해서 변수 할당.
+                roomNameForUrl = roomNameForUrl + ascii;
+            }
+            
+            // ascii code로 변환
+            window.location.pathname = '/chat/' + roomNameForUrl  + '/';
+        };
+        
+    </script>
+{% endblock %}

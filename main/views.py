@@ -6,14 +6,13 @@ from django.shortcuts import get_object_or_404, render, redirect
 # from django.views.generic.list import ListView
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.views.generic.detail import DetailView
-from .models import Category, Images, Post, Message
+from .models import Category, Images, Post, Message, ChatRoom, ChatRoomUser
 from .forms import ImageForm, PostForm
 from django.forms import modelformset_factory
-from django.contrib.auth.models import User
-
-import flag
 
 from django.core.paginator import Paginator
+import flag
+
 
 def main(request):
     context = dict()
@@ -99,7 +98,12 @@ def create(request):
 
 def detail(request,post_id):
     my_post = get_object_or_404(Post, id=post_id)
-    return render(request,'post/detail.html',{'my_post':my_post})
+    # 로그인한 유저
+    user = request.user.nickname
+    return render(request,'post/detail.html',{
+        'my_post':my_post,
+        'user':user,
+        })
 
 def update(request,post_id):
     my_post = get_object_or_404(Post,id=post_id)
@@ -128,23 +132,34 @@ def category(request,category_id):
     return render(request,'category/post_list.html',context)
     
   
-
 # chat
 def lobby(request):
-    # 나와 채팅한 유저가 최신순으로 채팅방 리스트에 정렬되어야 함. 
-    # 해당 메시지에서 연결된 foreignkey를 참조하면 됨. 
-    # 메시지를 순차적으로 정렬
-    # 한 명 당 여러 개의 메시지가 들어올 수 있는데 이 중에서 하나를 받아오면 나머지는 무시하고 다음 유저로. 
+    # 기본 유저 정보
+    context = dict()
+    user_flag = flag.flag("KR")
+    context['flag'] = user_flag
+    
+    # chatroom list
+    # 현재 로그인한 유저
+    logged_user = request.user
+    context['logged_user'] = logged_user
 
-    # Message
-    messages = Message.objects.all()
+    # 현재 로그인한 유저(나)가 포함된 채팅룸 가져오기.  
+    # chatrooms = list(logged_user.user_chatroom.all())
 
-    # User
-    users = User.objects.all() # 나중에 수정하기
-    return render(request, 'chat/lobby.html', {
-        'users' : users,
-        'messages' : messages,
-    })
+
+    # through 활용해보기
+    chatroom_lists = ChatRoomUser.objects.filter(user=logged_user) # 객체 자체를 가져오는 것.
+    context['chatroom_lists'] = chatroom_lists
+    
+    
+    
+    
+
+    
+    
+    
+    return render(request, 'chat/lobby.html', context)
 
 
 def room(request, room_name):

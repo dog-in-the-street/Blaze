@@ -19,7 +19,7 @@ urlpatterns = [
     path('update/<int:post_id>',update, name="update"),
     path('detail/<int:post_id>', detail, name="detail"),
     # chat
-    path('chat/', lobby, name="lobby"),
+    path('lobby/', lobby, name="lobby"),
     path('chat/<str:room_name>/', room, name="room"),
     path('category/<int:category_id>',category,name="category")
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

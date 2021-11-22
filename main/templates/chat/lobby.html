@@ -5,13 +5,21 @@
 
 {% block contents %}
     <div class="chat-list">
-        {% for user in users %}
-            <!-- 나를 제외한 나머지 유저  -->
-            <!-- 일단 이렇게 만들어 놓고 나중에 유저 / 메시지 / 날짜와 시간 표시하게 바꾸기 -->
-            <div>
-                <button id="{{ user }}" class="userName" onclick="CreateChatUrl(this.id)">{{ user }}</button>
-            </div>
-
+        {% for chatroom_list in chatroom_lists %}
+            <a href="{% url 'room' chatroom_list.chatroom %}"><div style="border: 1px solid black;">
+                <!-- 상대방 유저 정보(닉네임) -->
+                {% for user in chatroom_list.chatroom.user.all %}
+                    {% if not user == chatroom_list.user %}
+                        <p>{{ user.nickname }}</p>
+                    {% endif %}
+                {% endfor %}
+                <!-- 채팅방의 최근 메시지 -->
+                <p>{{ chatroom_list.chatroom.chatroom.latest.context }}</p>
+                <!-- 채팅방이 업데이트된 시간 -->
+                <p>{{ chatroom_list.chatroom.updated }}</p> 
+                
+                
+            </div></a>
         {% endfor %}
     </div>
     <script>
