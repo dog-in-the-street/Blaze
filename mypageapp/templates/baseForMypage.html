@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% block head %} {% endblock %}
+</head>
+<body>
+    <a href="{% url 'main' %}">blaze home</a>
+    <div class=""><h2>My Page</h2></div>
+    <div class="">
+    <li><a href="{% url 'mypageapp:mypage' %}">My Account</a></li>
+    <li><a href="{% url 'mypageapp:mypagePosts' %}">Posts</a></li>
+    <li><a href="{% url 'mypageapp:mypageComments' %}">Comments</a></li>
+    <li><a href="{% url 'mypageapp:mypageBlaze' %}">Blaze</a></li>
+    </div>
+
+    <div class=""><a href="{% url 'mypageapp:signout'%}">Sign Out</a></div>
+
+    {% block contents %}
+    {% endblock %}
+</body>
+</html>

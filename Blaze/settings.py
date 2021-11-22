@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'intro',
     'accounts',
     'django_countries',
+    'mypageapp',
     
 
     #google API social login 목적

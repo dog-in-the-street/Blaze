@@ -235,4 +235,6 @@ def like(request,post_id):
 
     return JsonResponse(context)
 
-
+@login_required
+def goMypage(request):
+    return render(request,'mypageapp:mypage')

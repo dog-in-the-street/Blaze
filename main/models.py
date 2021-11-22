@@ -42,11 +42,6 @@ class Post(models.Model):
         else:
             return False
 
-
-
-
-
-
 def get_image_filename(instance, filename):
     title = instance.post.title
     slug = slugify(title)
