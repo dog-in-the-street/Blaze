@@ -203,3 +203,4 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'accounts.BlazeUser'
 
 #email 인증 - SMTP
+
