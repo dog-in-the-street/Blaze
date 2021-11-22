@@ -10,6 +10,7 @@ import flag
 
 def main(request):
     context = dict()
+
     all_post = Post.objects.all()
     context['all_post'] = all_post
     categories = Category.objects.all()

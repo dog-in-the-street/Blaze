@@ -22,23 +22,23 @@
 
         <div class="post-container">
             <a href="{% url 'detail' post.id %}">
-                <div class="post-content">
+                <div class="all_post">
+                   
+                
+                <p id="flag" data-flag="{{post.author.country}}"></p>
+                  
+                    <div>{{post.author.nickname}}</div>
+                    {% if post.created_string == False %}
+                    <div>{{ post.registered_date|date:'y.m.d' }}</div>
+                    {% else %}
+                    <div>{{ post.created_string }}</div>
+                    {% endif %}
 
-                    <div class="post-nickname">
-                    <div class="nickname-flag">
-                        <p id="flag" data-flag="{{post.author.country}}"></p>
-                    </div>
-                        <div class="ninkname-data">
-                            <div class="author">{{post.author.nickname}}</div>
-                            <div class="updated-date">{{post.updated|date:"Y.m.d.h"}}</div>
-                        </div>
-                    </div>
-                    <div class="post-body">
-                        <div class="post-title">{{post.title}}</div>
-
-                        <div class="post-text">{{post.text}}</div>
-                        <div >{{post.like_users.count}}</div>
-                        {% if post.image %}
+                    <div>{{post.title}}</div>
+                 
+                    <div class="post.text">{{post.text}}</div>
+                    
+                    {% if post.image %}
                         {% for i in post.image.all %}
                         <img src="{{i.image.url}}" />
 

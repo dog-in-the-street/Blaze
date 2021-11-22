@@ -7,8 +7,10 @@
 
 {% block contents %}
 
-
-
+<!-- user가 쓴 글일때 더보기 클릭하면 -->
+<div class="icon"> 
+  
+</div>
 
 
 <!-- user가 쓴 글이 아닐 때 더보기 클릭하면 -->
@@ -18,27 +20,77 @@
 
 
 <p id="flag" data-flag="{{my_post.author.country}}"></p>
-<a href="{{request.META.HTTP_REFERER}}">Go back</a>
-<div >{{my_post.author.nickname}}</div>
-<div>{{my_post.title}}</div>
+{{my_post.author.nickname}}
+
+
+{% if my_post.created_string == False %}
+<div>{{ my_post.registered_date|date:'y.m.d'}}</div>
+{% else %}
+<div>{{ my_post.created_string }}</div>
+{% endif %}
+
+<br>{{my_post.title}}
 
 <div>{{my_post.text}}</div>
  
-{% if my_post.image %}
-{% for i in my_post.image.all %}
-<div style="width: 300px;margin: 100px;">
-    <div id="carousel-example-generic" class="carousel slide" >
 
-    <ol class="carousel-indicators">
-
-          
+<div id="my_post_{{ my_post.id }}" class="carousel slide" data-ride="carousel">
+  
+    {% if my_post.image %}
+         
+  
+    <div class="carousel-innner" role="listbox">
+        {% for i in my_post.image.all %}
+     
     
-        <img src="{{i.image.url}}"/>
-    </ol>
-</div>
+        <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+            <img src="{{ i.image.url }}" class="card-img-top">
+            <script>
+                $('.carousel'.carousel({pause: false}))
+            </script>
+        </div> 
+
+        {% endfor %}    
+
+       
+
+        <a class="carousel-control-prev" href="#my_post_{{ my_post.id }}" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+
+        </a>
+
+        <a class="carousel-control-next" href="#my_post_{{ my_post.id }}" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 </div>
 
+<form class="comment" method="POST" action="{% url 'create_comment' my_post.id %}">
+   {% csrf_token %}
+   {{comment_form}}
+  <button type="submit">comment</button>
+  </form>
+  
+  {% for comment in my_post.comment.all %}
+  <hr/>
+  <div>comment user : {{flag}}{{comment.user.nickname}} </div>
+  <div> comment : {{comment.content}}</div>
+  <div> {{comment.created_at|date:"Y.m.d"}}
+    {% if request.user == my_post.author %}
+    <a href="{% url 'delete_comment' comment.id my_post.id %}"><button id="deleteBtn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete</button></a>
+    {% endif %}
+  </div>
+  <form method="POST" action="{% url 'create_recomment' comment.id my_post.id %}">
+    {% csrf_token %}
+    {{recomment_form}}
+    <button type="submit">ReComment</button>
+</form>
+<hr />
 {% endfor %}
+
+{% for recom in comment.recomment.all %}
 
 {% endif %}
 <p>{{my_post.updated|date:"Y.m.d"}}</p>
@@ -46,9 +98,6 @@
 <a href="{%url 'update' my_post.id %}"><button>Edit</button></a>
 <a href="{%url 'delete' my_post.id %}"><button id="deleteBtn" onclick="return confirm('Are you sure you want to delete this?');">Delete</button></a>
 
-<div class="icon">
-    <button>send a message</button>
-</div>
 
 {% endif %}
 
@@ -94,8 +143,6 @@
 {% endif %}
 {% endfor %}
 {% endblock %}
-
-
 
 
 {% block script %}

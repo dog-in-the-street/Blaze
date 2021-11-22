@@ -6,6 +6,14 @@
     <a href="{% url 'detail' post.id %}">
         <div id="flag" data-flag="{{post.author.country}}"></div>
         <div>{{post.author.nickname}}</div>
+        <!-- <div class="time">{{post.time}}</div> -->
+        {% if post.created_string == False %}
+        <div>{{ post.registered_date|date:'y.m.d'}}</div>
+        {% else %}
+        <div>{{ post.created_string }}</div>
+        {% endif %}
+        
+
         <div class="title">{{post.title}}</div>
         <div class="content">{{post.text}}</div>
        
