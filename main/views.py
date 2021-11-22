@@ -6,14 +6,17 @@ from .forms import *
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-
+import flag
 
 def main(request):
     context = dict()
+
     all_post = Post.objects.all()
     context['all_post'] = all_post
     categories = Category.objects.all()
     context['categories'] = categories
+   
+    
     return render(request,'main.html',context)
 
 @login_required(login_url="/signin/")
@@ -68,6 +71,7 @@ def detail(request,post_id):
     context['comment_form'] = comment_form
     recomment_form = RecommentForm()
     context['recomment_form'] = recomment_form
+
     return render(request,'post/detail.html',context)
 
 
@@ -99,6 +103,8 @@ def delete(request,post_id):
 
 def category(request,category_id):
     context = dict()
+    categories = Category.objects.all()
+    context['categories'] =categories
     category = Category.objects.get(id=category_id) 
     category_post = Post.objects.filter(category=category).order_by('-id')
     context['category_post']  =category_post   
@@ -168,6 +174,47 @@ def search(request):
     else:
         return render(request, 'post/search.html')
   
+# chat
+def lobby(request):
+    # 기본 유저 정보
+    context = dict()
+    user_flag = flag.flag("KR")
+    context['flag'] = user_flag
+    
+    # chatroom list
+    # 현재 로그인한 유저
+    logged_user = request.user
+    context['logged_user'] = logged_user
+
+    # 현재 로그인한 유저(나)가 포함된 채팅룸 가져오기.  
+    # chatrooms = list(logged_user.user_chatroom.all())
+
+
+    # through 활용해보기
+    chatroom_lists = ChatRoomUser.objects.filter(user=logged_user) # 객체 자체를 가져오는 것.
+    context['chatroom_lists'] = chatroom_lists
+    
+    
+    
+    
+
+    
+    
+    
+    return render(request, 'chat/lobby.html', context)
+
+
+def room(request, room_name):
+    recent_messages = Message.objects.filter(room=room_name).order_by('timestamp')
+    return render(request, 'chat/room.html', {
+        'room_name' : room_name,
+        'recent_messages' : recent_messages,
+    })
+
+
+
+
+
 
 @login_required(login_url="/signin/")
 def like(request,post_id):

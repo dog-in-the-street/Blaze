@@ -1,28 +1,41 @@
 {% extends 'baseForMain.html' %}
 
+{% block head %}
+
+
+{% endblock %}
+
 {% block contents %}
 
-<!-- user가 쓴 글일때 더보기 클릭하면 -->
-<div class="icon"> 
 
-   
-</div>
 
-<!-- user가 쓴 글이 아닐 때 더보기 클릭하면 -->
+
+
 <div class="icon">
-    <button>send a message</button>
+    <button id="{{ post.author.nickname }}" class="userNameForChat" onclick="CreateChatUrl(this.id)">send a message</button>
 </div>
+
+
 <p id="flag" data-flag="{{my_post.author.country}}"></p>
-<div>{{my_post.author.nickname}}</div>
+<a href="{{request.META.HTTP_REFERER}}">Go back</a>
+<div >{{my_post.author.nickname}}</div>
 <div>{{my_post.title}}</div>
 
 <div>{{my_post.text}}</div>
  
 {% if my_post.image %}
 {% for i in my_post.image.all %}
-<img src="{{i.image.url}}"/>
+<div style="width: 300px;margin: 100px;">
+    <div id="carousel-example-generic" class="carousel slide" >
 
+    <ol class="carousel-indicators">
 
+          
+    
+        <img src="{{i.image.url}}"/>
+    </ol>
+</div>
+</div>
 
 {% endfor %}
 
@@ -32,7 +45,12 @@
 <a href="{%url 'update' my_post.id %}"><button>Edit</button></a>
 <a href="{%url 'delete' my_post.id %}"><button id="deleteBtn" onclick="return confirm('Are you sure you want to delete this?');">Delete</button></a>
 
+
+
 {% endif %}
+<div class="icon">
+    <button>send a message</button>
+</div>
 
 <div>
         
@@ -49,7 +67,7 @@
    {{comment_form}}
   <button type="submit">comment</button>
   </form>
-  
+ 
   {% for comment in my_post.comment.all %}
   <hr/>
   <div>comment user : {{comment.user.nickname}} </div>
@@ -65,19 +83,47 @@
     <button type="submit">ReComment</button>
 </form>
 <hr />
-{% for recom in comment.recomment.all %}
 
+
+{% for recom in comment.recomment.all %}
 <div> ==>{{recom.user.nickname}}</div>
 <div>{{recom.content}}</div>
 {% if request.user == my_post.author %}
     <a href="{% url 'delete_recomment' recom.id my_post.id %}"><button id="deleteBtn" onclick="return confirm('Are you sure you want to delete this recomment?');">Delete</button></a>
 {% endif %}
 {% endfor %}
+{% endfor %}
+{% endblock %}
 
-  {% endfor %}
-  
-  {% endblock %}
-  {% block script %}
+
+
+
+{% block script %}
+    <script>
+        // userName을 눌렀을 때 roomName 변수 할당하고 url 정보 수정.
+        function CreateChatUrl(e) {
+            let firstUser = "{{ user }}";
+            let secondUser = e;
+            let userArr = [firstUser, secondUser]; // 현재 로그인한 유저와 선택한 유저를 배열에 넣기
+            // 채팅방 이름을 아무렇게나 지으면 안되고 채팅 참가자를 어떠한 순서에 따라서 url을 만들어야 할듯. 
+            userArr.sort(); // 정렬
+            
+            let userA = userArr[0];
+            let userB = userArr[1];
+            let roomName = userA + userB;
+            let roomNameForUrl = '';
+
+            for (let i=0; i < roomName.length; i++) {
+                let ascii = String(roomName.charCodeAt(i)); // ascii로 변환한 뒤에 String로 형변환해서 변수 할당.
+                roomNameForUrl = roomNameForUrl + ascii;
+            }
+            
+            // ascii code로 변환
+            window.location.pathname = '/chat/' + roomNameForUrl  + '/';
+        };
+        
+    </script>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"> </script>

@@ -47,6 +47,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # channels. 장고가 비동기적으로 작동하도록 해주는 라이브러리
+    'channels',
+    # chat 기능 라이브러리 충돌을 방지하기 위해서 위에 main 위치.
+    'main',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +59,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'intro',
     'accounts',
-    'main',
     'django_countries',
     'mypageapp',
     
@@ -99,8 +102,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Blaze.wsgi.application'
-
-
+# asgi 
+ASGI_APPLICATION = 'Blaze.asgi.application'
+# Channel_layers
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -142,7 +154,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -192,3 +204,4 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'accounts.BlazeUser'
 
 #email 인증 - SMTP
+
