@@ -5,6 +5,7 @@ from .models import *
 from .forms import *
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 def main(request):
@@ -168,3 +169,25 @@ def search(request):
         return render(request, 'post/search.html')
   
 
+@login_required(login_url="/signin/")
+def like(request,post_id):
+    post = get_object_or_404(Post,id=post_id)
+    user = request.user
+    if user in post.like_users.all():
+        post.like_users.remove(user)
+        liked = False
+        print(liked)
+    else:
+        post.like_users.add(user)
+        liked = True
+        print(liked)
+    context = {
+        'liked':liked,
+        'count':post.like_users.count()
+    }
+
+    return JsonResponse(context)
+
+@login_required
+def goMypage(request):
+    return render(request,'mypageapp:mypage')

@@ -14,7 +14,8 @@
         <div><a href='{% url "index" %}'>Blaze (로고)</a></div> 
 
         {% if user.is_authenticated %}
-            {{ user.nickname }}님, 반갑습니다!
+            {{ user.nickname }}님, 반갑습니다!<br>
+            <a href="{% url 'mypageapp:mypage' %}">mypage 이동</a>
         {% else %}
             로그인 하시려면 <a href="{% url 'index' %}">이곳</a>을 클릭하세요
         {% endif %}
@@ -61,7 +62,7 @@
         );
         const flagReplace = document.querySelectorAll('[data-flag]');
         flagReplace.forEach(s => s.innerHTML = getFlagEmoji(s.dataset.flag))
-        
+        console.log(getFlagEmoji('US'))
         // handle search input length
         const searchForm = document.querySelector('.search-form')
         const searchInput = document.querySelector('#search-input');
@@ -77,6 +78,7 @@
         searchForm.addEventListener("submit",handleInputValue)
         
     </script>
+
 
     {% block script %}
     {% endblock %}
