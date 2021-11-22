@@ -115,14 +115,31 @@ class Message(models.Model):
 
 
 class Comment(models.Model):
-  user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE, related_name='comment_user')
-  post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
-  content = models.TextField()
-  # 최초 생성 날짜만 보여줌
-  created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE, related_name='comment_user')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
+    content = models.TextField()
+    # 최초 생성 날짜만 보여줌
+    # created_at = models.DateTimeField(auto_now_add=True)
+    registered_date = models.DateTimeField( auto_now_add=True , verbose_name='registration time')
 
-  def __str__(self):
-      return str(self.user)
+    @property
+    def created_string(self):
+        time = datetime.now(tz=timezone.utc) - self.registered_date
+
+        if time < timedelta(minutes=1):
+            return 'just now'
+        elif time < timedelta(hours=1):
+            return str(int(time.seconds / 60)) + 'minutes ago'
+        elif time < timedelta(days=1):
+            return str(int(time.seconds / 3600)) + 'hours ago'
+        elif time < timedelta(days=7):
+            time = datetime.now(tz=timezone.utc).date() - self.registered_date.date()
+            return str(time.days) + 'days ago'
+        else:
+            return False
+
+    def __str__(self):
+        return str(self.user)
 
 
 
@@ -132,3 +149,20 @@ class Recomment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name="recom_post")
     comment = models.ForeignKey(Comment,on_delete=models.CASCADE,related_name="recomment")
     content = models.TextField('recomment')
+    registered_date = models.DateTimeField( auto_now_add=True , verbose_name='registration time')
+
+    @property
+    def created_string(self):
+        time = datetime.now(tz=timezone.utc) - self.registered_date
+
+        if time < timedelta(minutes=1):
+            return 'just now'
+        elif time < timedelta(hours=1):
+            return str(int(time.seconds / 60)) + 'minutes ago'
+        elif time < timedelta(days=1):
+            return str(int(time.seconds / 3600)) + 'hours ago'
+        elif time < timedelta(days=7):
+            time = datetime.now(tz=timezone.utc).date() - self.registered_date.date()
+            return str(time.days) + 'days ago'
+        else:
+            return False

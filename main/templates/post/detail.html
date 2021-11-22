@@ -19,6 +19,17 @@
 <p id="flag" data-flag="{{my_post.author.country}}"></p>
 <a href="{{request.META.HTTP_REFERER}}">Go back</a>
 <div >{{my_post.author.nickname}}</div>
+
+{% if my_post.created_string == False %}
+<div>{{ my_post.registered_date|date:'y.m.d'}}</div>
+{% else %}
+<div>{{ my_post.created_string }}</div>
+{% endif %}
+
+
+
+
+
 <div>{{my_post.title}}</div>
 
 <div>{{my_post.text}}</div>
