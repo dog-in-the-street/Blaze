@@ -1,26 +1,62 @@
 {% extends 'baseForMain.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
-{% block contents %}
-    {% for post in  category_post %}
-    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
-    <a href="{% url 'detail' post.id %}">
-        <div id="flag" data-flag="{{post.author.country}}"></div>
-        <div>{{post.author.nickname}}</div>
-        <div class="title">{{post.title}}</div>
-        <div class="content">{{post.text}}</div>
-       
-        {% if post.image %}
-        {% for i in post.image.all %}
-        <img src="{{i.image.url}}"/>
-
-        {% endfor %}
-
-    {% endif %}
-    <p>{{post.updated|date:"Y.m.d.h"}}</p>
-        
-    {% endfor %}
-
-  
+{% endblock %}
+<a href="{{request.META.HTTP_REFERER}}">Go back</a>
 
    
+{% block contents %}
+<div class="content-wrapper">
+    <div class="category-wrapper">
+        <div class="category-title">Category</div>
+        <div class="all"><a href="{% url 'main' %}">All</a></div>
+        {% for category in categories %}
+        <div class="category"><a href="{% url 'category' category.id %}">{{category}}</a></div>
+        {% endfor %}
+
+    </div>
+    <div class="post-wrapper">
+        {% for post in category_post %}
+
+        <div class="post-container">
+            
+         
+                    <a href="{% url 'detail' post.id %}">
+                    <div class="post-nickname">
+                    <div class="nickname-flag">
+                        <p id="flag" data-flag="{{post.author.country}}"></p>
+                    </div>
+                        <div class="ninkname-data">
+                            <div class="author">{{post.author.nickname}}</div>
+                            <div class="updated-date">{{post.updated|date:"Y.m.d.h"}}</div>
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <div class="post-title">{{post.title}}</div>
+
+                        <div class="post-text">{{post.text}}</div>
+                        <div >{{post.like_users.count}}</div>
+                        {% if post.image %}
+                        {% for i in post.image.all %}
+                        <img src="{{i.image.url}}" />
+
+                        {% endfor %}
+
+                        {% endif %}
+
+                        <div class="post-category">{{post.category}}</p>
+                    </div>
+                </div>
+            </a>
+
+      
+    </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
 {% endblock %}

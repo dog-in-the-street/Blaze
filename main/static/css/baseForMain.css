@@ -29,6 +29,7 @@ body {
   width: 100vw;
   height: 80px;
   align-items: center;
+  z-index: 1000;
 }
 
 .nav-content {
