@@ -1,0 +1,18 @@
+{% extends 'baseForMypage.html' %}
+{% block contents %}
+
+<h3>My Comments</h3>
+{% for comment in comment_list %}
+    <li>
+        {{ comment.content }}&nbsp;&nbsp;
+        <a href="{% url 'detail' comment.post.id %}">Watch More!</a>
+    </li>
+{% endfor %}
+<h3>My Recomments</h3>
+{% for recomment in recomment_list %}
+    <li>
+        {{ recomment.content }}&nbsp;&nbsp;
+        <a href="{% url 'detail' recomment.post.id %}">Watch More!</a>
+    </li>
+{% endfor %}
+{% endblock %}

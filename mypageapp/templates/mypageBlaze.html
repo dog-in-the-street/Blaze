@@ -1,0 +1,8 @@
+{% extends 'baseForMypage.html' %}
+{% block contents %}
+{% for blaze in blazes %}
+    <p>
+    <a href="{% url 'detail' blaze.id %}">{{ blaze.title }}</a>
+    </p>
+{% endfor %}
+{% endblock %}

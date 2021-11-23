@@ -19,13 +19,13 @@ body {
   margin-top: 100px;
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content:space-around;
 }
 
 .category-wrapper {
   background-color: white;
   border-radius: 4px;
-  margin-left: 5%;
+  margin-left: 10%;
   width: 15%;
   height: 400px;
   padding-left: 25px;
@@ -52,23 +52,23 @@ body {
 .post-wrapper {
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 65%;
+  /* margin-left: 10%; */
 }
 
 .post-container {
-  width: 90%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: 4px;
   height: 500px;
   margin-bottom: 5%;
-  
+ 
+  position: relative;
 }
 
-.post-content{
-  display: flex;
-}
+
 
 .post-nickname {
   display: flex;
@@ -90,6 +90,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 80%;
+  justify-content: space-around;
   
 }
 
@@ -98,8 +99,84 @@ body {
   font-weight: 500;
 }
 
+.post-title{
+  font-weight: bold;
+  font-size: 2.4rem;
+  width: 90%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.post-text{
+  width: 90%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 
 .updated-date{
   color:#999999;
+}
+
+.post-category{
+  position: absolute;
+  bottom: 0;
+  right: 5%;
+  font-size: 1.4rem;
+  color:#999999;
+}
+
+.post-body-bottom{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  left: 0;
+  bottom: 100px;
+}
+.post-like-count{
+  width: 30%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a83ff;
+  color: white;
+  border-radius: 10%/50%;
+}
+
+.post-like-count img{
+  width: 24px;
+  height: 24px;
+}
+
+.post-comment{
+  width: 30%;
+  height: 40px;
+  border: 2px solid #1a83ff;
+  background-color: white;
+  color: #1a83ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10%/50%;
+  font-weight: 700;
+}
+
+.search-help-text{
+ 
+  width: 52%;
+  font-size: 2.4rem;
+  text-align: center;
+  margin: 30vh auto 0 auto
+ 
+}
+
+.search-help-text a{
+  margin-top: 5%;
+  font-size: 1.6rem;
+  color: #1a83ff;
 }
 

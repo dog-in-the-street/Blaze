@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'intro',
     'accounts',
     'django_countries',
+    'mypageapp',
     
 
     #google API social login 목적
@@ -153,8 +154,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
-
+USE_TZ = True
+#aware datetime 사용 -> True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -203,3 +204,4 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'accounts.BlazeUser'
 
 #email 인증 - SMTP
+

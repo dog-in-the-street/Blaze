@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import fields
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.defaultfilters import time
 from .models import *
 from .forms import *
 from django.forms import modelformset_factory
@@ -71,7 +72,7 @@ def detail(request,post_id):
     context['comment_form'] = comment_form
     recomment_form = RecommentForm()
     context['recomment_form'] = recomment_form
-  
+
     return render(request,'post/detail.html',context)
 
 
@@ -103,6 +104,8 @@ def delete(request,post_id):
 
 def category(request,category_id):
     context = dict()
+    categories = Category.objects.all()
+    context['categories'] =categories
     category = Category.objects.get(id=category_id) 
     category_post = Post.objects.filter(category=category).order_by('-id')
     context['category_post']  =category_post   
@@ -119,6 +122,7 @@ def create_comment(request,post_id):
         temp_form = comment_form.save(commit=False)
         temp_form.post = Post.objects.get(id=post_id)
         temp_form.user = request.user
+        temp_form.save()
         return redirect('detail',post_id)
     else:
         comment_form = CommentForm()
@@ -163,13 +167,15 @@ def delete_recomment(request,recom_id,post_id):
 def search(request):
     context = dict()
     post = request.POST.get("post","")
+    categories = Category.objects.all()
+    context['categories'] = categories
     if post:
         search_post = Post.objects.filter(title__icontains=post)| Post.objects.filter(text__icontains=post)
         context['search_post']=search_post
         context['post']=post
         return render(request, 'post/search.html', context)
     else:
-        return render(request, 'post/search.html')
+        return render(request, 'post/search.html',context)
   
 # chat
 def lobby(request):
@@ -232,4 +238,6 @@ def like(request,post_id):
 
     return JsonResponse(context)
 
-
+@login_required
+def goMypage(request):
+    return render(request,'mypageapp:mypage')

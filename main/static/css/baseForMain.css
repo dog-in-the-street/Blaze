@@ -29,6 +29,7 @@ body {
   width: 100vw;
   height: 80px;
   align-items: center;
+  z-index: 1000;
 }
 
 .nav-content {
@@ -90,5 +91,8 @@ body {
     font-weight: bold;
 }
 
-
+.carousel-innner{
+  width: 300px;
+  height: 200px;
+}
 

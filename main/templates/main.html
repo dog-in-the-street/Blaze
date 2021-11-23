@@ -21,38 +21,74 @@
         {% for post in all_post %}
 
         <div class="post-container">
+
+
             <a href="{% url 'detail' post.id %}">
-                <div class="all_post">
-                   
-                
-                <p id="flag" data-flag="{{post.author.country}}"></p>
-                  
-                    <div>{{post.author.nickname}}</div>
-                    {% if post.created_string == False %}
-                    <div>{{ post.registered_date|date:'y.m.d' }}</div>
-                    {% else %}
-                    <div>{{ post.created_string }}</div>
-                    {% endif %}
-
-                    <div>{{post.title}}</div>
-                 
-                    <div class="post.text">{{post.text}}</div>
-                    
-                    {% if post.image %}
-                        {% for i in post.image.all %}
-                        <img src="{{i.image.url}}" />
-
-                        {% endfor %}
-
+                <div class="post-nickname">
+                    <div class="nickname-flag">
+                        <p id="flag" data-flag="{{post.author.country}}"></p>
+                    </div>
+                    <div class="ninkname-data">
+                        <div class="author">{{post.author.nickname}}</div>
+                        <!-- <div class="updated-date">{{post.updated|date:"Y.m.d.h"}}</div> -->
+                        {% if post.created_string == False %}
+                        <div>{{ post.registered_date|date:'y.m.d'}}</div>
+                        {% else %}
+                        <div>{{ post.created_string }}</div>
                         {% endif %}
 
-                        <div class="post-category">{{post.category}}</p>
                     </div>
+                </div>
+                <div class="post-body">
+                    <div class="post-title">{{post.title}}</div>
+
+                    <div class="post-text">{{post.text}}</div>
+
+                   
+                    {% if post.image %}
+                    <div id="post_{{ post.id }}" class="carousel slide" data-ride="carousel">
+                        
+                        <div class="carousel-innner"role="listbox">
+                        {% for i in post.image.all %}
+                            <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+
+                                <img src="{{ i.image.url }}"class="card-img-top">
+                                <script>
+                                      $('.carousel'.carousel({pause:false}))
+                                </script>
+                            </div>
+                        {% endfor %}
+
+                        </div>
+                        
+                        <a class="carousel-control-prev"href="#post_{{ post.id }}"role="button"data-slide="prev">
+                            <span class="carousel-control-prev-icon"aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                                    
+                        <a class="carousel-control-next"href="#post_{{ post.id }}"role="button"data-slide="next">            
+                            <span class="carousel-control-next-icon"aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>   
+
+                    </div>
+                    {% endif %}
+
+
+
+
+                    <div class="post-body-bottom">
+                        <div class="post-like-count"><img src="{% static 'images/fire.svg' %}"/>&nbsp;&nbsp;{{post.like_users.count}}</div>
+                        <div class="post-comment">Comment</div>
+                    </div>
+
+                </div>
+                <div class="post-category">{{post.category}}</p>
                 </div>
             </a>
 
+
         </div>
-    </div>
         {% endfor %}
     </div>
 
