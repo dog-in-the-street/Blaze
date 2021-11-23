@@ -21,7 +21,9 @@
         <div class="nav-content">
             {% if user.is_authenticated %}
             <div class="nickname">HI! {{ user.nickname }}</div>
-            <a href="{% url 'mypageapp:mypage' %}">mypage 이동</a>
+            <div class="mypagebtn">
+                <a href="{% url 'mypageapp:mypage' %}">mypage 이동</a>
+            </div>
             {% else %}
             <button class="nav-login"> <a href="{% url 'signin' %}">login</a></button>
             {% endif %}
@@ -55,6 +57,35 @@
    
     {% block contents %}
     {% endblock %}
+
+    <button class="scroll-top" id="js-button">
+        <i class="fa fa-chevron-up" aria-hidden="true">TOP</i>
+    </button>
+    
+    
+    <script type="text/javascript">
+    scrollTop('js-button', 500);
+    function scrollTop(elem,duration) {
+        let target = document.getElementById(elem);
+    
+        target.addEventListener('click', function() {
+            let currentY = window.pageYOffset; 
+            let step = duration/currentY > 1 ? 10 : 100;
+            let timeStep = duration/currentY * step;
+            let intervalID = setInterval(scrollUp, timeStep);
+    
+            function scrollUp(){
+                currentY = window.pageYOffset;
+                if(currentY === 0) {
+                    clearInterval(intervalID);
+                } else {
+                    scrollBy( 0, -step );
+                }
+            }
+        });
+    }
+    </script>
+
 
     <script>
         // get flag emoji

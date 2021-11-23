@@ -12,7 +12,7 @@ import flag
 def main(request):
     context = dict()
 
-    all_post = Post.objects.all()
+    all_post = Post.objects.all().order_by('-id')
     context['all_post'] = all_post
     categories = Category.objects.all()
     context['categories'] = categories
