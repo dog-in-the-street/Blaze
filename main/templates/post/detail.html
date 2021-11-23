@@ -11,9 +11,7 @@
 
 
 
-<div class="icon">
-    <button id="{{ post.author.nickname }}" class="userNameForChat" onclick="CreateChatUrl(this.id)">send a message</button>
-</div>
+
 
 
 <p id="flag" data-flag="{{my_post.author.country}}"></p>
@@ -64,14 +62,13 @@
 
 <p>{{my_post.updated|date:"Y.m.d"}}</p>
 {% if request.user == my_post.author %}
-<a href="{%url 'update' my_post.id %}"><button>Edit</button></a>
 <a href="{%url 'delete' my_post.id %}"><button id="deleteBtn" onclick="return confirm('Are you sure you want to delete this?');">Delete</button></a>
 
 
 
 {% endif %}
-<div class="icon">
-    <button>send a message</button>
+<div class="icon" style="left:30px; position: relative;">
+    <button id="{{ post.author.nickname }}" class="userNameForChat" onclick="CreateChatUrl(this.id)">send a message</button>
 </div>
 
 <div>

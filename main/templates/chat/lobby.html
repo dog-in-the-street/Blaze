@@ -28,7 +28,7 @@
                             {% endfor %}
                                     <!-- 채팅방이 업데이트된 시간 -->
                                     <div class="message-updated" style="color: #4D4D4D;">                    
-                                        {{ chatroom_list.chatroom.updated | date:'y.n.j g:iA'}}   
+                                        {{ chatroom_list.chatroom.updated_string }} {{ chatroom_list.chatroom.updated | date:'g:iA'}}   
                                     </div>
                                 </div> 
                                 <!-- 채팅방의 최근 메시지 -->
@@ -63,7 +63,7 @@
             }
             
             // ascii code로 변환
-            window.location.pathname = '/chat/' + roomNameForUrl  + '/';
+            window.location.pathname = '/chat/' + String(roomNameForUrl)  + '/';
         };
     </script>
 {% endblock %}

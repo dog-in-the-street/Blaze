@@ -5,21 +5,48 @@
 {% endblock %}
 
 {% block contents %}
-    <textarea id="chat-log" cols="100" rows="20">
-        {% for message in recent_messages %}
-        {{ message.author.nickname }}: {{ message.context}}
-        {% endfor %}
-    </textarea><br/>
-    <input id="chat-message-input" type="text" size="100"/><br/>
-    <input id="chat-message-submit" type="button" value="Send"/>
-    {{ room_name|json_script:"room-name" }}
+    <div class="outer">
+        <div class="message-container">
+            <div class="container-header">
+                <!-- 상대방 유저 정보 -->
+                {% for message in recent_messages|slice:":1" %}
+                    {% if not message.author.nickname == logged_user.nickname %}
+                        <div id="flag" data-flag="{{ message.author.country }}"></div>
+                        <div class="user-nickname"><b>{{ message.author.nickname }}</b></div>
+                        
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <a href="{% url 'lobby' %}"><input type="image" id="back-to-lobby" src="{% static 'images/arrow.png' %}" alt="back-btn"></a>
+            <div class="container-content">
+                <div id="chat-log">
+                    {% for message in recent_messages %}
+                        {% if message.author == logged_user %}
+                            <div class="send-messages"><b>{{ message.context}}</b></div><br>
+                            <div id="timestamp-right">{{ message.timestamp_string }} {{ message.timestamp | date:'g:iA'}}</div>
 
-    {% for message in messages %}
-        {{ message.tag }}
-        {{ message }}
-    {% endfor %}
+                        {% else %}
+                            <div class="received-messages"><b>{{ message.context}}</b></div>
+                            <div >{{ message.timestamp_string }} {{ message.timestamp | date:'g:iA'}}</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div class="container-input">
+                <input id="chat-message-input" type="text" placeholder="Type here">
+                <input type="image" id="chat-message-submit" src="{% static 'images/mono-icons_send.png' %}" alt="send-btn">
 
-    
+
+                {{ room_name|json_script:"room-name" }}
+
+                {% for message in messages %}
+                    {{ message.tag }}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block script %}
@@ -36,10 +63,10 @@
         );
 
 
-        // 서버에서 데이터를 수신해서 textarea에 추가함.
+        // 서버에서 데이터를 수신해서 #chat-log에 추가함.
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += ('{{ user.nickname }}: ' + data.message + '\n'); // user는 현재 로그인 중인 유저
+            document.querySelector('#chat-log').innerHTML += (data.message + '\n'); 
         };
         
         // 비정상적인 종료시에 (비동기니까 서버 연결에 민감)
@@ -55,6 +82,7 @@
             }
         };
 
+        
         // 입력한 메시지 서버로 보내준 뒤에 초기화
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
@@ -64,5 +92,22 @@
             }));
             messageInputDom.value = '';
         };
+
+        // 스크롤바 가장 아래에
+        document.getElementById('chat-log').scrollTop = document.getElementById('chat-log').scrollHeight;
+
+        // 공백
+        // const handleInputValue = (e) => {
+
+        //     // handle search input length
+        //     const messageInput = document.querySelector('#chat-message-input')
+        //     const messageSubmit = document.querySelector('#chat-message-submit');
+        //     const value = messageInput.value.length;
+        //     if (value === 0) {
+        //         e.preventDefault();
+        //         alert("Blank is not allowed!")
+        //     }
+        //     }
+        //     messageInput.addEventListener("submit", handleInputValue)
     </script>
 {% endblock %}

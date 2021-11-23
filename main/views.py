@@ -193,11 +193,17 @@ def lobby(request):
 
 @login_required(login_url="/signin/")
 def room(request, room_name):
+    context = dict()
     recent_messages = Message.objects.filter(room=room_name).order_by('timestamp')
-    return render(request, 'chat/room.html', {
-        'room_name' : room_name,
-        'recent_messages' : recent_messages,
-    })
+    # 현재 로그인한 유저
+    logged_user = request.user
+    context['logged_user'] = logged_user
+    
+    context['room_name'] = room_name
+    context['recent_messages'] = recent_messages
+
+
+    return render(request, 'chat/room.html', context)
 
 
 @login_required(login_url="/signin/")
