@@ -23,9 +23,20 @@ class ImageForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+  
     class Meta:
         model = Comment
+        
         fields = ('content',)
+        labels = {
+            'content': (''),
+        }
+        widgets = {
+                
+                'content': forms.Textarea(
+                attrs={'placeholder':'Comment Here'}),
+             }
+
 
 
 
@@ -34,6 +45,15 @@ class RecommentForm(forms.ModelForm):
    class Meta:
         model = Recomment
         fields = ('content',)
+        labels = {
+            'content': (''),
+        }
+        widgets = {
+                
+                'content': forms.Textarea(
+                attrs={'placeholder':'ReComment Here'}),
+             }
+
 
      
 

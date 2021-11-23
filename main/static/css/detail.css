@@ -1,0 +1,236 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+html,
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  min-height: 702px;
+  background-color: #DAE0E6;
+}
+
+* {
+  text-decoration: none;
+}
+
+.top-wrapper{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    margin:  -5% 2% 0 2%;
+}
+.post-wrapper{
+
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 100px auto 50px auto;
+    height: 700px;
+    background-color: white;
+    justify-content:space-around;
+}
+
+.profile-wrapper{
+    display: flex;
+    align-items: center;
+    margin-top: -15%;
+}
+
+.profile-wrapper p{
+    font-size: 4rem;
+    margin: 0 1% 0 2%;
+}
+
+.nickname-info{
+    font-size: 1.6rem;
+}
+
+.author{
+    color:#666666;
+    font-weight: 500;
+}
+
+.post-time{
+    font-size: 1.4rem;
+    color: #999999;
+}
+
+.icon{
+    margin-top: 1%;
+    margin-left: 2%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.icon button{
+    
+    width: 100px;
+    height: 35px;
+    border-radius: 8pc;
+    border: none;
+    background-color: #1a83ff;
+    color: white;
+}
+
+.post-title{
+    margin-top: -10%;
+    margin-left: 10%;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.post-text{
+   
+    margin-top: -10%;
+    margin-left: 10%;
+    font-size: 1.4rem;
+    width: 80%;
+    overflow-x: hidden;
+}
+#text{
+width: 80%;
+}
+
+#deleteBtn{
+    background-color: white;
+    cursor: pointer;
+    border: none;
+    color: #1a83ff;
+    font-size: 1.2rem;
+}
+
+#deleteBtn:focus{
+    border: none;
+}
+
+.like-wrapper{
+    margin-left: 10%;
+    width: 10%;
+    background-color: #1a83ff;
+    text-align: center;
+    color: white;
+    height: 33px;
+    border-radius: 8px;
+    
+}
+
+.like-wrapper span{
+    font-size: 2rem;
+    margin-right: 4%;
+}
+
+.like-wrapper i{
+    cursor: pointer;
+   
+}
+
+.comment-wrapper{
+   
+    width: 80%;
+    margin: 0 auto;
+    height: 700px;
+    background-color: white;
+   
+   
+}
+
+
+.comment{
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+}
+.comment-input{
+   
+   margin:0 auto;
+    
+}
+
+.comment-input textarea{
+   margin-top: 5%;
+
+   width: 450px;
+    height: 45px;
+    border:1px solid #1a83ff;
+    border-radius: 8px;
+    padding: 3%;
+    
+}
+
+.comment-btn{
+    margin-top: 2%;
+    font-size: 1.4rem;
+    border: none;
+    color: white;
+    background-color: #1a83ff;
+    border-radius: 8px;
+    width: 10%;
+    height: 45px;
+    cursor: pointer;
+}
+
+#flag{
+font-size: 3rem;
+
+}
+
+.profile{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.profile-image{
+    margin-left: 5%;
+    display: flex;
+}
+
+.del-btn{
+    margin-right: 5%;
+}
+
+.nickname{
+   
+   margin-top: 8%;
+  
+
+}
+
+.user-nickname{
+    font-weight: 600;
+}
+
+.comment-body{
+    margin-left: 5%;
+    font-size: 2.4rem;
+}
+
+.recom-profile{
+    display: flex;
+    justify-content: space-between;
+}
+
+.recom-image{
+    display: flex;
+    margin-left: 5%;
+   
+}
+.recom-delete{
+    margin-right: 5%;
+}
+
+.recom-data{
+    margin-top: 5%;
+}
+
+.recom-text{
+    margin-left: 5%;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
