@@ -1,12 +1,30 @@
-(% extends 'baseForMypage.html' %)
+{% extends 'baseForMypage.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+{% endblock %}
+
 {% block contents %}
 
-<h2>Edit Nickname</h2>
-
-<form action="{% url 'mypageapp:editNickname' %}" method="POST">
-    {% csrf_token %}
-    nickname = <input type="text" name="nickname" value="{{ user.nickname}}">
-    <input type="submit" value="confirm">
-</form>
-
+<div class="post-wrapper">
+    <div class="post-container">
+        <div class="post-menuname">
+            Edit Nickname
+        </div>
+        <form action="{% url 'mypageapp:editNickname' %}" method="POST">
+            {% csrf_token %}
+            <div class="post-body">
+                <div class="post-text">
+                    <p>nickname = <input type="text" name="nickname" value="{{ user.nickname}}"></p>
+                    <div class="nickbtn-wrapper">
+                        <input class = "editNickname-btn" type="submit" value="confirm">
+                        <!-- <button class="editNickname-btn"><a href="{% url 'mypageapp:go_editNickname'%}">Edit Nickname</a></button> -->
+                    </div>
+            
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

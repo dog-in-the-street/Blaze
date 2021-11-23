@@ -8,7 +8,6 @@ from django.conf import settings
 # from .views import PostCreate
 # from .views import PostList, PostCreate, PostUpdate, PostDelete, PostDetail
 # from .views import index
-
 urlpatterns = [
     path('main/',main, name="main"),
     # path('admin/', admin.site.urls),
