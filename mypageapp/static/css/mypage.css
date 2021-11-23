@@ -8,40 +8,32 @@ body {
   box-sizing: border-box;
   font-size: 10px;
   min-height: 702px;
-  background-color: #DAE0E6;
+  background-color: #e5e5e5;
 }
-
 * {
   text-decoration: none;
 }
-a{
-  color:#333333;
-}
-a:hover{
-   
-   text-decoration: none;
-}
-
+/* mypage 카테고리 */
 .content-wrapper {
-  margin-top: 100px;
-  display: flex;
-  width: 100%;
-  justify-content:space-around;
-}
+    margin-top: 100px;
+    display: flex;
+    width: 100%;
+    justify-content:space-around;
+  }
 
 .category-wrapper {
   background-color: white;
   border-radius: 4px;
   margin-left: 10%;
   width: 15%;
-  height: 500px;
+  height: 400px;
   padding-left: 25px;
 }
 
 .category-wrapper a {
-  color: black;
-}
-
+    color: black;
+  }
+  
 .category-title {
   font-size: 2.4rem;
   font-weight: bold;
@@ -49,8 +41,11 @@ a:hover{
   padding-top: 10%;
 }
 
-.category,
-.all {
+.myaccount,
+.posts,
+.blaze,
+.comments,
+.signout {
   font-size: 1.6rem;
   font-weight: 500;
   margin-top: 14%;
@@ -64,8 +59,8 @@ a:hover{
 }
 
 .post-container {
-  width: 80%;
   display: flex;
+  width: 80%;
   flex-direction: column;
   background-color: white;
   border-radius: 4px;
@@ -75,16 +70,25 @@ a:hover{
   position: relative;
 }
 
-
-
 .post-nickname {
   display: flex;
   align-items: center;
+  text-align: center;
   font-size: 1.4rem;
   color: #333333;
   padding-left: 5%;
-  padding-top:5%;
 }
+.post-menuname{
+    font-weight: bold;
+    font-size: 2.4rem;
+    width: 90%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color:#1a83ff;
+    padding-left:19px;
+    padding-top:30px;
+}
+
 
 .nickname-flag {
   font-size: 3.6rem;
@@ -97,14 +101,8 @@ a:hover{
   color: #333333;
   display: flex;
   flex-direction: column;
-  height: 350px;
-  justify-content:space-around;
+  height: 80%;
   
-}
-
-.author{
-  color:#666666;
-  font-weight: 500;
 }
 
 .post-title{
@@ -114,20 +112,18 @@ a:hover{
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  color:#1a83ff;
 }
 
 .post-text{
   width: 90%;
   text-overflow: ellipsis;
-  overflow: hidden;
   white-space: nowrap;
+ 
 }
-
-
-.updated-date{
-  color:#999999;
+.post-text a{
+    text-decoration: none;
 }
-
 .post-category{
   position: absolute;
   bottom: 0;
@@ -138,10 +134,11 @@ a:hover{
 
 .post-body-bottom{
   width: 100%;
- 
   display: flex;
   justify-content: space-around;
-  margin-left: -5%;
+  position: absolute;
+  left: 0;
+  bottom: 100px;
 }
 .post-like-count{
   width: 30%;
@@ -163,7 +160,6 @@ a:hover{
   width: 30%;
   height: 40px;
   border: 2px solid #1a83ff;
-  background-color: white;
   color: #1a83ff;
   display: flex;
   align-items: center;
@@ -172,29 +168,51 @@ a:hover{
   font-weight: 700;
 }
 
-.search-help-text{
- 
-  width: 52%;
-  font-size: 2.4rem;
-  text-align: center;
-  margin: 30vh auto 0 auto
- 
+.nickbtn-wrapper {
+    margin-bottom: 3%;
+    width: 150px;
+    height: 30px;
+    font-size: 1.6rem;
+    border-radius: 2em;
+    border: none;
+    background-color: white;
+    border: 1px solid black;
 }
 
-.search-help-text a{
-  margin-top: 5%;
+.editNickname-btn{
+    margin-bottom: 3%;
+    width: 150px;
+    height: 30px;
+    font-size: 1.6rem;
+    border-radius: 2em;
+    border: none;
+    background-color: white;
+    border: 1px solid black;
+
+}
+
+.nickbtn-wrapper .editNickname-btn a{
+    color: black;
+    text-decoration: none;
+}
+  
+.myaccounttop {
+    display:center;
+    font-size: 1.6rem;
+}
+
+.post-text a{
+    color: black;
+}
+.post-text a:hover{
+    color: #1a83ff;
+}
+
+.flag-body{
+  display: flex;
+}
+
+#flag{
   font-size: 1.6rem;
-  color: #1a83ff;
-}
-
-.best-title{
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #333333;
-}
-
-.best-help-text{
-  font-size: 1.4rem;
-  margin: 2% 0;
-  color: #666666;
+  margin-right: 2%;
 }

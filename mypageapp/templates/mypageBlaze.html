@@ -1,8 +1,19 @@
 {% extends 'baseForMypage.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+{% endblock %}
+
 {% block contents %}
-{% for blaze in blazes %}
-    <p>
-    <a href="{% url 'detail' blaze.id %}">{{ blaze.title }}</a>
-    </p>
-{% endfor %}
+<div class="post-container">
+    <div class="post-menuname">Blaze 🔥</div>
+    <div class="post-body">
+        {% for blaze in blazes %}
+            <div class="post-text">
+                <p>✔️<a href="{% url 'detail' blaze.id %}">{{ blaze.title }}</a></p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
