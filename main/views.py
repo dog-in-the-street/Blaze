@@ -78,21 +78,6 @@ def detail(request,post_id):
 
 
 
-@login_required(login_url="/signin/")
-def update(request,post_id):
-    my_post = get_object_or_404(Post,id=post_id)
-    if request.method == "POST":
-        update_form = PostForm(request.POST,instance=my_post)
-
-        if update_form.is_valid():
-            update_form.save(commit=False)
-            update_form.author = request.user
-            update_form.post = my_post
-            update_form.save()
-            return redirect('detail',post_id)
-
-    update_form = PostForm(instance=my_post)
-    return render(request,'post/update.html',{'update_form':update_form})
 
 
 @login_required(login_url="/signin/")
@@ -170,7 +155,7 @@ def search(request):
     categories = Category.objects.all()
     context['categories'] = categories
     if post:
-        search_post = Post.objects.filter(title__icontains=post)| Post.objects.filter(text__icontains=post)
+        search_post = Post.objects.filter(title__icontains=post)| Post.objects.filter(text__icontains=post).order_by('-id')
         context['search_post']=search_post
         context['post']=post
         return render(request, 'post/search.html', context)
@@ -241,3 +226,6 @@ def like(request,post_id):
 @login_required
 def goMypage(request):
     return render(request,'mypageapp:mypage')
+
+def best_topic(request):
+    return render(request,'post/best-topic.html')

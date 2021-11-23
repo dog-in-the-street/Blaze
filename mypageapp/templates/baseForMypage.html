@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,21 +6,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css"  href="{% static 'css/baseForMypage.css' %}">
+
     {% block head %} {% endblock %}
 </head>
 <body>
-    <a href="{% url 'main' %}">blaze home</a>
-    <div class=""><h2>My Page</h2></div>
-    <div class="">
-    <li><a href="{% url 'mypageapp:mypage' %}">My Account</a></li>
-    <li><a href="{% url 'mypageapp:mypagePosts' %}">Posts</a></li>
-    <li><a href="{% url 'mypageapp:mypageComments' %}">Comments</a></li>
-    <li><a href="{% url 'mypageapp:mypageBlaze' %}">Blaze</a></li>
+    <nav class="navMenu">
+        <div class="main-logo"><a href='{% url "main" %}'><img src="{% static 'images/logo.png' %}" alt="logo-image" title="blaze!"/></a></div>
+        <div class="nav-content">
+            {% if user.is_authenticated %}
+            <div class="nickname">HI {{ user.nickname }}!</div>
+            <a class ="mypagetohome" href="{% url 'main' %}">HOME</a>
+            {% else %}
+            <button class="nav-login"> <a href="{% url 'signin' %}">login</a></button>
+            {% endif %}
+
+
+            <form method="POST" class="search-form" action="{% url 'search' %}">
+                {%csrf_token%}
+                <input type="search" placeholder="Title or Content" aria-label="Search" name="post" value="{{post}}"
+                    id="search-input" id="search">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+
+            <div class="create_write_btn">
+                <a href="{%url 'create' %}">
+                   
+                    <img src="{% static 'images/create-btn.svg' %}" alt="create-btn" />
+                </a>
+            </div>
+
+
+            <div class="alarm">
+                <a href="">
+                    <div class="alarm_btn">
+                        <icon />
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="category-wrapper">
+            <div class="category-title">My Page</div>
+                <div class="myaccount"><a href="{% url 'mypageapp:mypage' %}">My Account</a></div>
+                <div class="posts"><a href="{% url 'mypageapp:mypagePosts' %}">Posts</a></div>
+                <div class="comments"><a href="{% url 'mypageapp:mypageComments' %}">Comments</a></div>
+                <div class="blaze"><a href="{% url 'mypageapp:mypageBlaze' %}">Blaze</a></div>
+                <div class="signout">
+                    <div class="btn-wrapper">
+                        <button class="signOut-btn"><a href="{% url 'mypageapp:signout'%}">Sign Out</a></button>
+                    </div>
+                </div>
+        </div>
+        <div class="post-wrapper">
+            {% block contents %}
+            {% endblock %}
+        </div>
     </div>
 
-    <div class=""><a href="{% url 'mypageapp:signout'%}">Sign Out</a></div>
-
-    {% block contents %}
-    {% endblock %}
 </body>
 </html>

@@ -9,7 +9,7 @@ body {
   box-sizing: border-box;
   font-size: 10px;
   min-height: 702px;
-  background-color: #e5e5e5;
+  background-color: #DAE0E6;
   /* 세로 스크롤의 영향으로 가로 스크롤이 생겨서 가로 스크롤 방지 */
   overflow-x: hidden;
 }
@@ -85,7 +85,7 @@ body {
 }
 
 
-.nickname, .mypagebtn {
+.nickname a{
     color: #1a83ff;
     font-size: 1.6rem;
     font-weight: bold;
