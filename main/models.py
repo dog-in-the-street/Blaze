@@ -26,6 +26,9 @@ class Post(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     registered_date = models.DateTimeField( auto_now_add=True , verbose_name='registration time')
 
+    def __str__(self) :
+        return self.title
+
     @property
     def created_string(self):
         time = datetime.now(tz=timezone.utc) - self.registered_date

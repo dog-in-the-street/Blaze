@@ -14,17 +14,29 @@
         <!-- <div class="myaccounttop">My Account</div> -->
     </div>
     <div class="post-menuname">Nickname</div>
-    <div class="post-body"><div class="post-text"><p>{{ nickname }}</p>
-        <div class="nickbtn-wrapper">
-            <button class="editNickname-btn"><a href="{% url 'mypageapp:go_editNickname'%}">Edit Nickname</a></button>
+    <div class="post-body">
+        <div class="post-text">
+            <p>{{ nickname }}</p>
+            <div class="nickbtn-wrapper">
+                <button class="editNickname-btn"><a href="{% url 'mypageapp:go_editNickname'%}">Edit
+                        Nickname</a></button>
+            </div>
         </div>
-    </div></div>
+    </div>
     <div class="post-menuname">E-Mail</div>
-    <div class="post-body"><div class="post-text"><p>{{email}}</p></div></div>
+    <div class="post-body">
+        <div class="post-text">
+            <p>{{email}}</p>
+        </div>
+    </div>
     <div class="post-menuname">I'm from </div>
-    <div class="post-body"><div class="post-text"><p>{{country}}</p></div></div>
+    <div class="post-body">
+        <div class="post-text">
+            <div class="flag-body">
+                <p id="flag" data-flag="{{country}}"></p>
+                <p>{{country}}</p>
+            </div>
+        </div>
+    </div>
 </div>
-{% endblock %}
-{% block script %}
-
 {% endblock %}
