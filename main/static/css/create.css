@@ -8,7 +8,7 @@ body {
   box-sizing: border-box;
   font-size: 10px;
   min-height: 702px;
-  background-color: #e5e5e5;
+  background-color: #DAE0E6;
 }
 
 * {
@@ -98,8 +98,11 @@ body {
 
 
 .image-formset{
+    width: 50%;
     display: flex;
-    
+    flex-wrap: wrap;
+    margin-left: 15%;
+    margin-top: 3%;
 }
 
 .image-formset label{
@@ -121,3 +124,4 @@ body {
     border-radius: 8px;
     cursor: pointer;
 }
+
