@@ -167,13 +167,15 @@ def delete_recomment(request,recom_id,post_id):
 def search(request):
     context = dict()
     post = request.POST.get("post","")
+    categories = Category.objects.all()
+    context['categories'] = categories
     if post:
         search_post = Post.objects.filter(title__icontains=post)| Post.objects.filter(text__icontains=post)
         context['search_post']=search_post
         context['post']=post
         return render(request, 'post/search.html', context)
     else:
-        return render(request, 'post/search.html')
+        return render(request, 'post/search.html',context)
   
 # chat
 def lobby(request):
@@ -236,4 +238,6 @@ def like(request,post_id):
 
     return JsonResponse(context)
 
-
+@login_required
+def goMypage(request):
+    return render(request,'mypageapp:mypage')

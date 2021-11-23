@@ -1,0 +1,12 @@
+(% extends 'baseForMypage.html' %)
+{% block contents %}
+
+<h2>Edit Nickname</h2>
+
+<form action="{% url 'mypageapp:editNickname' %}" method="POST">
+    {% csrf_token %}
+    nickname = <input type="text" name="nickname" value="{{ user.nickname}}">
+    <input type="submit" value="confirm">
+</form>
+
+{% endblock %}

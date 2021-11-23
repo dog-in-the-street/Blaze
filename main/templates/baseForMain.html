@@ -21,6 +21,7 @@
         <div class="nav-content">
             {% if user.is_authenticated %}
             <div class="nickname">HI! {{ user.nickname }}</div>
+            <a href="{% url 'mypageapp:mypage' %}">mypage 이동</a>
             {% else %}
             <button class="nav-login"> <a href="{% url 'signin' %}">login</a></button>
             {% endif %}
@@ -78,6 +79,7 @@
         searchForm.addEventListener("submit", handleInputValue)
 
     </script>
+
 
     {% block script %}
     {% endblock %}
