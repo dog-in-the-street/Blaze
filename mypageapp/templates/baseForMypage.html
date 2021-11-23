@@ -15,8 +15,8 @@
         <div class="main-logo"><a href='{% url "main" %}'><img src="{% static 'images/logo.png' %}" alt="logo-image" title="blaze!"/></a></div>
         <div class="nav-content">
             {% if user.is_authenticated %}
-            <div class="nickname">HI! {{ user.nickname }}</div>
-            <a href="{% url 'mypageapp:mypage' %}">mypage 이동</a>
+            <div class="nickname">HI {{ user.nickname }}!</div>
+            <a class ="mypagetohome" href="{% url 'main' %}">HOME</a>
             {% else %}
             <button class="nav-login"> <a href="{% url 'signin' %}">login</a></button>
             {% endif %}
