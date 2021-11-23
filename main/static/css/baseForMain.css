@@ -91,5 +91,8 @@ body {
     font-weight: bold;
 }
 
-
+.carousel-innner{
+  width: 300px;
+  height: 200px;
+}
 
