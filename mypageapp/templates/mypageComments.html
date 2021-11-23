@@ -13,8 +13,7 @@
     <div class="post-body">
         {% for comment in comment_list %}
         <div class="post-text">
-            <p>✔️{{ comment.content }}&nbsp;&nbsp;
-            <a href="{% url 'detail' comment.post.id %}">Watch More!</a></p>
+            <a href="{% url 'detail' comment.post.id %}"><p>✔️{{ comment.content }}&nbsp;&nbsp;</a></p>
         </div>
     {% endfor %}
     </div>
@@ -25,8 +24,7 @@
     <div class="post-body">
         {% for recomment in recomment_list %}
             <div class="post-text">
-                <p>✔️{{ recomment.content }}&nbsp;&nbsp;
-                <a href="{% url 'detail' recomment.post.id %}">Watch More!</a></p>
+                <a href="{% url 'detail' recomment.post.id %}"></a><p>✔️{{ recomment.content }}&nbsp;&nbsp;</a></p>
             </div>
         {% endfor %}
     </div>
