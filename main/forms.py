@@ -36,3 +36,5 @@ class RecommentForm(forms.ModelForm):
         fields = ('content',)
 
      
+
+# Message updated 날짜 형식

@@ -5,23 +5,41 @@
 {% endblock %}
 
 {% block contents %}
-    <div class="chat-list">
-        {% for chatroom_list in chatroom_lists %}
-            <a href="{% url 'room' chatroom_list.chatroom %}"><div style="border: 1px solid black;">
-                <!-- 상대방 유저 정보(닉네임) -->
-                {% for user in chatroom_list.chatroom.user.all %}
-                    {% if not user == chatroom_list.user %}
-                        <p>{{ user.nickname }}</p>
-                    {% endif %}
-                {% endfor %}
-                <!-- 채팅방의 최근 메시지 -->
-                <p>{{ chatroom_list.chatroom.chatroom.latest.context }}</p>
-                <!-- 채팅방이 업데이트된 시간 -->
-                <p>{{ chatroom_list.chatroom.updated }}</p> 
+    <div class="outer">
+        <div class="chatroom-container">
+            <div class="container-header">
+                <b>Message</b>
+            </div>
+            
+            {% for chatroom_list in chatroom_lists %}
+                <a href="{% url 'room' chatroom_list.chatroom %}">
+                    <div class="container-content-wrapper">
+                        <div class="container-content">  
+                            <!-- 상대방 유저 정보(닉네임) -->
+                            {% for user in chatroom_list.chatroom.user.all %}
+                                {% if not user == chatroom_list.user %}
+                                    <div class="chatroom-item-left">
+                                        <div id="flag" data-flag="{{ user.country }}"></div>
+                                    </div>
+                            <div class="chatroom-item-right">
+                                <div class="nickname-updated-wrapper">
+                                    <div class="user-nickname"><b>{{ user.nickname }}</b></div>
+                                {% endif %}
+                            {% endfor %}
+                                    <!-- 채팅방이 업데이트된 시간 -->
+                                    <div class="message-updated" style="color: #4D4D4D;">                    
+                                        {{ chatroom_list.chatroom.updated | date:'y.n.j g:iA'}}   
+                                    </div>
+                                </div> 
+                                <!-- 채팅방의 최근 메시지 -->
+                                <div class="message-context" style="color: #4D4D4D;">{{ chatroom_list.chatroom.chatroom.latest.context }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>  
+            {% endfor %}
                 
-                
-            </div></a>
-        {% endfor %}
+        </div>
     </div>
     <script>
         // userName을 눌렀을 때 roomName 변수 할당하고 url 정보 수정.
