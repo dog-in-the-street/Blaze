@@ -8,6 +8,7 @@ from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import flag
+from datetime import date, timedelta
 
 def main(request):
     context = dict()
@@ -162,7 +163,9 @@ def search(request):
     else:
         return render(request, 'post/search.html',context)
   
+  
 # chat
+@login_required(login_url="/signin/")
 def lobby(request):
     # 기본 유저 정보
     context = dict()
@@ -174,34 +177,33 @@ def lobby(request):
     logged_user = request.user
     context['logged_user'] = logged_user
 
-    # 현재 로그인한 유저(나)가 포함된 채팅룸 가져오기.  
-    # chatrooms = list(logged_user.user_chatroom.all())
-
-
-    # through 활용해보기
+    # through
     chatroom_lists = ChatRoomUser.objects.filter(user=logged_user) # 객체 자체를 가져오는 것.
     context['chatroom_lists'] = chatroom_lists
-    
-    
-    
-    
 
-    
+    # 날짜 계산
+    today = date.today()
+    yesterday = date.today() - timedelta(1)
+    context['today'] = today
+    context['yesterday'] = yesterday
     
     
     return render(request, 'chat/lobby.html', context)
 
 
+@login_required(login_url="/signin/")
 def room(request, room_name):
+    context = dict()
     recent_messages = Message.objects.filter(room=room_name).order_by('timestamp')
-    return render(request, 'chat/room.html', {
-        'room_name' : room_name,
-        'recent_messages' : recent_messages,
-    })
+    # 현재 로그인한 유저
+    logged_user = request.user
+    context['logged_user'] = logged_user
+    
+    context['room_name'] = room_name
+    context['recent_messages'] = recent_messages
 
 
-
-
+    return render(request, 'chat/room.html', context)
 
 
 @login_required(login_url="/signin/")
