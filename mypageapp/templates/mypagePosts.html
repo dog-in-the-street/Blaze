@@ -1,0 +1,6 @@
+{% extends 'baseForMypage.html' %}
+{% block contents %}
+{% for post in post_list %}
+    <p><a href="{% url 'detail' post.id %}">{{ post.title }}</a></p>
+{% endfor %}
+{% endblock %}

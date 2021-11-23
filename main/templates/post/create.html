@@ -1,31 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form method="POST" enctype="multipart/form-data" >
-        {% csrf_token %}
-        
-        <div class="post-title">{{postForm.title}}</div>
-        
-        <div class="post-text">{{postForm.text}}</div>
-        <label for="post-category">{{postForm.category.label}}</div>
-        <div class="post-text">{{postForm.category}}</div>
+{% extends 'baseForMain.html' %}
 
-        {{ formset.management_form }}
-        {% for form in formset %}
-            {{ form }}<br/>
-        {% endfor %}
-       
-        <input type="submit" value="Blaze!" />
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/create.css' %}">
+
+<title>Create Post</title>
+
+{% endblock %}
+
+{% block contents %}
+<div class="create-container">
+    <div class="create-title">Create Post</div>
+    <form method="POST" enctype="multipart/form-data" class="create-form">
+        {% csrf_token %}
+        <div class="form-content">
+        <div class="post-title">{{postForm.title}}</div>
+
+        <div class="post-text">{{postForm.text}}</div>
+        </div>
+        <div class="category-wrapper">
+        <label for="category" class="category-title">{{postForm.category.label}}</label>
+        <div class="post-category">{{postForm.category}}</div>
+    </div>
+
+        <div class="image-formset">
+            {{ formset.management_form }}
+            {% for form in formset %}
+            <div class="upload">{{ form }}</div>
+            {% endfor %}
+        </div>
+        <div class="submit">
+        <button type="submit" class="submit-btn">Blaze!</button>
+        </div>
     </form>
+</div>
 </body>
+
 </html>
 
 
 
-</form>
+
+
+{% endblock %}

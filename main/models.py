@@ -5,7 +5,9 @@ from django.db import models
 from django.db.models import fields
 from django.template.defaultfilters import slugify
 from accounts.models import BlazeUser
-
+from datetime import datetime, timedelta
+from django.utils import timezone
+import pytz
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)
@@ -20,16 +22,25 @@ class Post(models.Model):
     title = models.CharField(max_length=30, null=True)
     text = models.TextField(blank=True)
     # image = models.ImageField(null = True, blank = True )
-    updated = models.DateTimeField(auto_now=True, null=True)
+    # updated = models.DateTimeField(auto_now=True, null=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    registered_date = models.DateTimeField( auto_now_add=True , verbose_name='registration time')
 
+    @property
+    def created_string(self):
+        time = datetime.now(tz=timezone.utc) - self.registered_date
 
-    def __str__(self) :
-        return "text : "+self.text
-
-    # class Meta:
-    #     ordering = ['-created']
-
+        if time < timedelta(minutes=1):
+            return 'just now'
+        elif time < timedelta(hours=1):
+            return str(int(time.seconds / 60)) + 'minutes ago'
+        elif time < timedelta(days=1):
+            return str(int(time.seconds / 3600)) + 'hours ago'
+        elif time < timedelta(days=7):
+            time = datetime.now(tz=timezone.utc).date() - self.registered_date.date()
+            return str(time.days) + 'days ago'
+        else:
+            return False
 
 def get_image_filename(instance, filename):
     title = instance.post.title
@@ -99,14 +110,31 @@ class Message(models.Model):
 
 
 class Comment(models.Model):
-  user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE, related_name='comment_user')
-  post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
-  content = models.TextField()
-  # 최초 생성 날짜만 보여줌
-  created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE, related_name='comment_user')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
+    content = models.TextField()
+    # 최초 생성 날짜만 보여줌
+    # created_at = models.DateTimeField(auto_now_add=True)
+    registered_date = models.DateTimeField( auto_now_add=True , verbose_name='registration time')
 
-  def __str__(self):
-      return str(self.user)
+    @property
+    def created_string(self):
+        time = datetime.now(tz=timezone.utc) - self.registered_date
+
+        if time < timedelta(minutes=1):
+            return 'just now'
+        elif time < timedelta(hours=1):
+            return str(int(time.seconds / 60)) + 'minutes ago'
+        elif time < timedelta(days=1):
+            return str(int(time.seconds / 3600)) + 'hours ago'
+        elif time < timedelta(days=7):
+            time = datetime.now(tz=timezone.utc).date() - self.registered_date.date()
+            return str(time.days) + 'days ago'
+        else:
+            return False
+
+    def __str__(self):
+        return str(self.user)
 
 
 
@@ -116,3 +144,20 @@ class Recomment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name="recom_post")
     comment = models.ForeignKey(Comment,on_delete=models.CASCADE,related_name="recomment")
     content = models.TextField('recomment')
+    registered_date = models.DateTimeField( auto_now_add=True , verbose_name='registration time')
+
+    @property
+    def created_string(self):
+        time = datetime.now(tz=timezone.utc) - self.registered_date
+
+        if time < timedelta(minutes=1):
+            return 'just now'
+        elif time < timedelta(hours=1):
+            return str(int(time.seconds / 60)) + 'minutes ago'
+        elif time < timedelta(days=1):
+            return str(int(time.seconds / 3600)) + 'hours ago'
+        elif time < timedelta(days=7):
+            time = datetime.now(tz=timezone.utc).date() - self.registered_date.date()
+            return str(time.days) + 'days ago'
+        else:
+            return False

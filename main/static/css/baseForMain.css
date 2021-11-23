@@ -1,12 +1,17 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 /* 초기화 코드 */
 html,
 body {
+  font-family: 'Noto Sans KR' ,sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-size: 10px;
   min-height: 702px;
   background-color: #e5e5e5;
+  /* 세로 스크롤의 영향으로 가로 스크롤이 생겨서 가로 스크롤 방지 */
+  overflow-x: hidden;
 }
 
 * {
@@ -16,14 +21,15 @@ body {
 .navMenu {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 0; 
   right: 0;
   display: flex;
   justify-content: space-between;
   background-color: white;
-  width: 100%;
+  width: 100vw;
   height: 80px;
   align-items: center;
+  z-index: 1000;
 }
 
 .nav-content {
@@ -79,11 +85,14 @@ body {
 }
 
 
-.nickname{
+.nickname a{
     color: #1a83ff;
     font-size: 1.6rem;
     font-weight: bold;
 }
 
-
+.carousel-innner{
+  width: 300px;
+  height: 200px;
+}
 

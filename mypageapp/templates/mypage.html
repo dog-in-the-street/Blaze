@@ -1,0 +1,9 @@
+{% extends 'baseForMypage.html' %}
+{% block contents %}
+
+<p><strong>My Nickname : </strong>{{ nickname }}</p>
+<p><strong>My E-Mail : </strong>{{email}}</p>
+<p><strong>I'm from </strong>{{country}}</p>
+<a href="{% url 'mypageapp:go_editNickname'%}">Edit Nickname</a>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import fields
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.defaultfilters import time
 from .models import *
 from .forms import *
 from django.forms import modelformset_factory
@@ -11,7 +12,8 @@ from datetime import date, timedelta
 
 def main(request):
     context = dict()
-    all_post = Post.objects.all()
+
+    all_post = Post.objects.all().order_by('-id')
     context['all_post'] = all_post
     categories = Category.objects.all()
     context['categories'] = categories
@@ -71,27 +73,12 @@ def detail(request,post_id):
     context['comment_form'] = comment_form
     recomment_form = RecommentForm()
     context['recomment_form'] = recomment_form
-  
+
     return render(request,'post/detail.html',context)
 
 
 
 
-@login_required(login_url="/signin/")
-def update(request,post_id):
-    my_post = get_object_or_404(Post,id=post_id)
-    if request.method == "POST":
-        update_form = PostForm(request.POST,instance=my_post)
-
-        if update_form.is_valid():
-            update_form.save(commit=False)
-            update_form.author = request.user
-            update_form.post = my_post
-            update_form.save()
-            return redirect('detail',post_id)
-
-    update_form = PostForm(instance=my_post)
-    return render(request,'post/update.html',{'update_form':update_form})
 
 
 @login_required(login_url="/signin/")
@@ -103,6 +90,8 @@ def delete(request,post_id):
 
 def category(request,category_id):
     context = dict()
+    categories = Category.objects.all()
+    context['categories'] =categories
     category = Category.objects.get(id=category_id) 
     category_post = Post.objects.filter(category=category).order_by('-id')
     context['category_post']  =category_post   
@@ -119,6 +108,7 @@ def create_comment(request,post_id):
         temp_form = comment_form.save(commit=False)
         temp_form.post = Post.objects.get(id=post_id)
         temp_form.user = request.user
+        temp_form.save()
         return redirect('detail',post_id)
     else:
         comment_form = CommentForm()
@@ -163,13 +153,15 @@ def delete_recomment(request,recom_id,post_id):
 def search(request):
     context = dict()
     post = request.POST.get("post","")
+    categories = Category.objects.all()
+    context['categories'] = categories
     if post:
-        search_post = Post.objects.filter(title__icontains=post)| Post.objects.filter(text__icontains=post)
+        search_post = Post.objects.filter(title__icontains=post)| Post.objects.filter(text__icontains=post).order_by('-id')
         context['search_post']=search_post
         context['post']=post
         return render(request, 'post/search.html', context)
     else:
-        return render(request, 'post/search.html')
+        return render(request, 'post/search.html',context)
   
   
 # chat
@@ -227,4 +219,9 @@ def like(request,post_id):
 
     return JsonResponse(context)
 
+@login_required
+def goMypage(request):
+    return render(request,'mypageapp:mypage')
 
+def best_topic(request):
+    return render(request,'post/best-topic.html')
