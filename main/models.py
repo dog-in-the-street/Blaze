@@ -7,7 +7,7 @@ from django.template.defaultfilters import slugify
 from accounts.models import BlazeUser
 from datetime import datetime, timedelta
 from django.utils import timezone
-
+import pytz
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)
