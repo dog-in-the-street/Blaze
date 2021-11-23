@@ -228,4 +228,7 @@ def goMypage(request):
     return render(request,'mypageapp:mypage')
 
 def best_topic(request):
-    return render(request,'post/best-topic.html')
+    week_post = Post.objects.filter(registered_date__iso_week_day__gte=1).order_by('-like_users','-id')
+    ranking = week_post[0:10]
+    categories = Category.objects.all()
+    return render(request,'post/best-topic.html',{'ranking':ranking,'categories': categories})
