@@ -85,7 +85,7 @@ body {
 }
 
 
-.nickname{
+.nickname a{
     color: #1a83ff;
     font-size: 1.6rem;
     font-weight: bold;

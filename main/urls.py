@@ -16,7 +16,6 @@ urlpatterns = [
     # path("", PostList.as_view(), name='main'),
     # path("create/", PostCreate.as_view(), name='create'),
     path('delete/<int:post_id>', delete, name="delete"),
-    path('update/<int:post_id>',update, name="update"),
     path('detail/<int:post_id>', detail, name="detail"),
     # chat
     path('lobby/', lobby, name="lobby"),
@@ -28,7 +27,7 @@ urlpatterns = [
     path('create_recomment/<int:recom_id>/<int:post_id>',create_recomment,name="create_recomment"),
     path('delete_recomment/<int:recom_id>/<int:post_id>',delete_recomment,name="delete_recomment"),
     path('search/',search,name="search"),
-
+    path('best-topic/',best_topic,name="best-topic"),
     
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
