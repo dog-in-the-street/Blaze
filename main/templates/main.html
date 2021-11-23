@@ -3,7 +3,7 @@
 {% load static %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-
+<title>Blaze!</title>
 
 {% endblock %}
 
@@ -12,6 +12,7 @@
     <div class="category-wrapper">
         <div class="category-title">Category</div>
         <div class="all"><a href="{% url 'main' %}">All</a></div>
+        <div class="all"><a href="{% url 'best-topic' %}">Best Topic</a></div>
         {% for category in categories %}
         <div class="category"><a href="{% url 'category' category.id %}">{{category}}</a></div>
         {% endfor %}
