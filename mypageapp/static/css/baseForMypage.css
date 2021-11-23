@@ -1,0 +1,181 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+/* 초기화 코드 */
+html,
+body {
+  font-family: 'Noto Sans KR' ,sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  min-height: 702px;
+  background-color: #e5e5e5;
+  /* 세로 스크롤의 영향으로 가로 스크롤이 생겨서 가로 스크롤 방지 */
+  overflow-x: hidden;
+}
+
+* {
+  text-decoration: none;
+}
+
+.navMenu {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0; 
+  right: 0;
+  justify-content: space-between;
+  background-color: white;
+  width: 100vw;
+  height: 80px;
+  align-items: center;
+  z-index: 1000;
+}
+
+.nav-content {
+  display: flex;
+  width: 40%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main-logo img {
+  width: 150px;
+  height: 53px;
+  padding-left: 10%;
+  padding-top: 5%;
+}
+
+.nav-login {
+  width: 15%;
+  height: 35px;
+  border: none;
+  background-color: #1a83ff;
+  border-radius: 4px;
+  font-size: 1.6rem;
+}
+
+.nav-login a{
+    color: white;
+}
+
+.search-form {
+  text-align: center;
+  width: 50%;
+}
+
+#search-input {
+  width: 75%;
+  border: 1px solid #1a83ff;
+  height: 35px;
+  border-radius: 4px;
+  padding: 5px 0 5px 10px;
+}
+#search-input::placeholder {
+  color: #1a83ff;
+}
+
+.search-btn {
+  width: 20%;
+  height: 35px;
+  border: none;
+  background-color: #1a83ff;
+  border-radius: 4px;
+  color: white;
+}
+
+
+.nickname {
+  color: #1a83ff;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.nickname a{
+  color: #1a83ff;
+  font-size: 1.6rem;
+  font-weight: bold;
+
+}
+
+/* mypage 카테고리 */
+.content-wrapper {
+    margin-top: 100px;
+    display: flex;
+    width: 100%;
+    justify-content:space-around;
+  }
+
+.category-wrapper {
+  background-color: white;
+  border-radius: 4px;
+  margin-left: 10%;
+  width: 15%;
+  height: 400px;
+  padding-left: 25px;
+}
+
+.category-wrapper a {
+    color: black;
+  }
+  
+.category-title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #333333;
+  padding-top: 10%;
+}
+
+.myaccount,
+.posts,
+.blaze,
+.comments,
+.signout {
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-top: 14%;
+}
+
+.myaccount a:hover,
+.posts a:hover,
+.blaze a:hover,
+.comments a:hover,
+.signout a:hover{
+  color:#1a83ff;
+}
+
+
+.post-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  /* margin-left: 10%; */
+}
+
+.post-container {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 4px;
+  height: 500px;
+  margin-bottom: 5%;
+ 
+  position: relative;
+}
+
+.btn-wrapper .signOut-btn{
+  margin-bottom: 3%;
+  width: 90px;
+  height: 30px;
+  font-size: 1.6rem;
+  border-radius: 2em;
+  border: none;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.btn-wrapper .signOut-btn a{
+  color: black;
+  text-decoration: none;
+}

@@ -57,34 +57,6 @@
     {% block contents %}
     {% endblock %}
 
-    <script>
-        // get flag emoji
-        const getFlagEmoji = (countryCode) => countryCode.toUpperCase().replace(/./g,
-            char => String.fromCodePoint(127397 + char.charCodeAt())
-        );
-        const flagReplace = document.querySelectorAll('[data-flag]');
-        flagReplace.forEach(s => s.innerHTML = getFlagEmoji(s.dataset.flag))
-
-        // handle search input length
-        const searchForm = document.querySelector('.search-form')
-        const searchInput = document.querySelector('#search-input');
-        const handleInputValue = (e) => {
-
-            console.log(searchInput.value)
-            const value = searchInput.value.length;
-            if (value === 0 || value < 3) {
-                e.preventDefault();
-                alert("Please insert more than 3 characters!")
-            }
-        }
-        searchForm.addEventListener("submit", handleInputValue)
-
-    </script>
-
-
-    {% block script %}
-    {% endblock %}
-
 
 
 </body>
