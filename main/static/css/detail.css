@@ -89,7 +89,7 @@ body {
     margin-left: 10%;
     font-size: 1.4rem;
     width: 80%;
-    overflow-x: hidden;
+    overflow-x: xden;
 }
 #text{
 width: 80%;
@@ -235,3 +235,12 @@ font-size: 3rem;
     font-size: 1.4rem;
     font-weight: 600;
 }
+
+.Rcomment {
+    display: none;
+    
+  }
+.active {
+    display: block;
+  }
+  
