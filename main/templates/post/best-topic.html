@@ -48,41 +48,40 @@
                         <div class="post-text">{{post.text}}</div>
     
     
-                        {% if post.image.all %}
-                        <div class="image-container">
-                        <div id="post_{{ post.id }}" class="carousel slide" data-ride="carousel">
-    
-                                <div class="carousel-innner">
-                                {% for i in post.image.all %}
+                        {% if post.image %}
+                
+                    
+                        <div id="post_{{ post.id }}" class="carousel slide" data-ride="carousel" style="width: 300px;
+                        height: 200px;">
+                            
+                            <div class="carousel-inner" role="listbox">
+                            
+                            {% for i in post.image.all %}
                                 <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
-    
-                                    <img src="{{ i.image.url }}" >
-                                           
-    
+
+                                    <img src="{{ i.image.url }}"class="card-img-top">
+                                    
                                 </div>
-                                {% endfor %}
-    
-                                   
-                            </div>
-    
-                            <a class="carousel-control-prev" href="#post_{{ post.id }}" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            {% endfor %}
+
+                        
+                            </div>
+                            
+                            <a class="carousel-control-prev" href="#post_{{ post.id }}" role="button"data-slide="prev">
+                                <span class="carousel-control-prev-icon"aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                                   
-                            <a class="carousel-control-next" href="#post_{{ post.id }}" role="button" data-slide="next">   
-                                       
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        
+                            <a class="carousel-control-next" href="#post_{{ post.id }}"role="button"data-slide="next">            
+                                <span class="carousel-control-next-icon"aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>   
-    
+
+                        
+                    {% endif %}
                         </div>
-                    </div>
-                        {% endif %}
     
-    
-    
-    
+                        <a href="{%url 'detail' post.id %}">
                         <div class="post-body-bottom">
                             <div class="post-like-count"><img
                                     src="{% static 'images/fire.svg' %}" />&nbsp;&nbsp;{{post.like_users.count}}</div>
@@ -93,6 +92,7 @@
                     <div class="post-category">{{post.category}}</p>
                     </div>
                 </a>
+                </a>
     
     
             </div>
@@ -102,6 +102,16 @@
     </div>
     
     
+{% endblock %}
+{% block script %}
+<script>
+    let url = window.location.pathname;
+  
+  $('.category-wrapper').find('a').each(function() {
+    $(this).toggleClass('bold', $(this).attr('href') == url);
+    console.log(this)
+ });
+</script>
 {% endblock %}
 </body>
 </html>
