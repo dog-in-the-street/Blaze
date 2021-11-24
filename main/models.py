@@ -139,7 +139,7 @@ class Message(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE, related_name='comment_user')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comment")
     content = models.TextField()
     # 최초 생성 날짜만 보여줌
     # created_at = models.DateTimeField(auto_now_add=True)
