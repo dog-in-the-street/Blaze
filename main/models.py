@@ -86,6 +86,20 @@ class ChatRoom(models.Model):
     class Meta:
         ordering = ['-updated']
 
+    @property
+    def updated_string(self):
+        
+
+        if self.updated.date() == datetime.now(tz=timezone.utc).date():
+            return 'Today, ' 
+        elif self.updated.date() == datetime.now(tz=timezone.utc).date() - timedelta(1):
+            return 'Yesterday, ' 
+        else:
+            past_day = datetime.now(tz=timezone.utc).date() - self.updated.date()
+            return str(past_day.days) + 'days ago, '
+
+        
+
 
 # ChatRoom에서 through로 사용하는 class 
 class ChatRoomUser(models.Model):
@@ -111,10 +125,21 @@ class Message(models.Model):
     class Meta:
         get_latest_by = ['timestamp']
 
+    @property
+    def timestamp_string(self):
+
+        if self.timestamp.date() == datetime.now(tz=timezone.utc).date():
+            return 'Today, ' 
+        elif self.timestamp.date() == datetime.now(tz=timezone.utc).date() - timedelta(1):
+            return 'Yesterday, ' 
+        else:
+            past_day = datetime.now(tz=timezone.utc).date() - self.timestamp.date()
+            return str(past_day.days) + 'days ago, '
+
 
 class Comment(models.Model):
     user = models.ForeignKey(BlazeUser,on_delete=models.CASCADE, related_name='comment_user')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name="comment")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comment")
     content = models.TextField()
     # 최초 생성 날짜만 보여줌
     # created_at = models.DateTimeField(auto_now_add=True)
