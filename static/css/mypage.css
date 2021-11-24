@@ -1,0 +1,218 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+html,
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  min-height: 702px;
+  background-color: #e5e5e5;
+}
+* {
+  text-decoration: none;
+}
+/* mypage 카테고리 */
+.content-wrapper {
+    margin-top: 100px;
+    display: flex;
+    width: 100%;
+    justify-content:space-around;
+  }
+
+.category-wrapper {
+  background-color: white;
+  border-radius: 4px;
+  margin-left: 10%;
+  width: 15%;
+  height: 400px;
+  padding-left: 25px;
+}
+
+.category-wrapper a {
+    color: black;
+  }
+  
+.category-title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #333333;
+  padding-top: 10%;
+}
+
+.myaccount,
+.posts,
+.blaze,
+.comments,
+.signout {
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-top: 14%;
+}
+
+.post-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  /* margin-left: 10%; */
+}
+
+.post-container {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 4px;
+  height: 500px;
+  margin-bottom: 5%;
+ 
+  position: relative;
+}
+
+.post-nickname {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #333333;
+  padding-left: 5%;
+}
+.post-menuname{
+    font-weight: bold;
+    font-size: 2.4rem;
+    width: 90%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color:#1a83ff;
+    padding-left:19px;
+    padding-top:30px;
+}
+
+
+.nickname-flag {
+  font-size: 3.6rem;
+  margin-right: 2%;
+}
+
+.post-body {
+  font-size: 1.6rem;
+  padding-left: 5%;
+  color: #333333;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  
+}
+
+.post-title{
+  font-weight: bold;
+  font-size: 2.4rem;
+  width: 90%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color:#1a83ff;
+}
+
+.post-text{
+  width: 90%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+ 
+}
+.post-text a{
+    text-decoration: none;
+}
+.post-category{
+  position: absolute;
+  bottom: 0;
+  right: 5%;
+  font-size: 1.4rem;
+  color:#999999;
+}
+
+.post-body-bottom{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  left: 0;
+  bottom: 100px;
+}
+.post-like-count{
+  width: 30%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a83ff;
+  color: white;
+  border-radius: 10%/50%;
+}
+
+.post-like-count img{
+  width: 24px;
+  height: 24px;
+}
+
+.post-comment{
+  width: 30%;
+  height: 40px;
+  border: 2px solid #1a83ff;
+  color: #1a83ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10%/50%;
+  font-weight: 700;
+}
+
+.nickbtn-wrapper {
+    margin-bottom: 3%;
+    width: 150px;
+    height: 30px;
+    font-size: 1.6rem;
+    border-radius: 2em;
+    border: none;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.editNickname-btn{
+    margin-bottom: 3%;
+    width: 150px;
+    height: 30px;
+    font-size: 1.6rem;
+    border-radius: 2em;
+    border: none;
+    background-color: white;
+    border: 1px solid black;
+
+}
+
+.nickbtn-wrapper .editNickname-btn a{
+    color: black;
+    text-decoration: none;
+}
+  
+.myaccounttop {
+    display:center;
+    font-size: 1.6rem;
+}
+
+.post-text a{
+    color: black;
+}
+.post-text a:hover{
+    color: #1a83ff;
+}
+
+.flag-body{
+  display: flex;
+}
+
+#flag{
+  font-size: 1.6rem;
+  margin-right: 2%;
+}
