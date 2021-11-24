@@ -42,7 +42,9 @@ SECRET_KEY = get_secret("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "ec2-3-34-99-30.ap-northeast-2.compute.amazonaws.com"
+    "ec2-3-34-99-30.ap-northeast-2.compute.amazonaws.com",
+    "127.0.0.1:8000/",
+    "127.0.0.1",
 ]
 
 
