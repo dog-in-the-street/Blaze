@@ -96,9 +96,10 @@
    {% csrf_token %}
    {{comment_form}}
   <button type="submit">comment</button>
-  </form>
- 
+</form>
+
   {% for comment in my_post.comment.all %}
+    
     <hr/>
     <div>comment user : {{comment.user.nickname}} </div>
     <div> comment : {{comment.content}}</div>
@@ -108,24 +109,25 @@
     {% else %}
     <div>{{ comment.created_string }}</div>
     {% endif %}
+    <div class="recom-title">Recomment</div>
 
     {% if request.user == my_post.author %}
     <a href="{% url 'delete_comment' comment.id my_post.id %}"><button id="deleteBtn" onclick="return confirm('Are you sure you want to delete this comment?');">Delete</button></a>
     {% endif %}
   </div>
- 
-    
-    <span id="toc-toggle" onclick="openCloseToc()">recomment</span>
-    <form method="POST" action="{% url 'create_recomment' comment.id my_post.id %}" class="recom-form">
-    {% csrf_token %}
 
-    <!-- <span id="toc-toggle" onclick="openCloseToc()">recomment</span> -->
-    <div id="toc-content">
-        {{recomment_form}}
-        <button type="submit">Recomment</button>
-    </div>
-
-    <script>
+<div class="Recommenthide">
+    <form method="POST" action="{% url 'create_recomment' my_post.id comment.id %}" class="recom-form">
+        {% csrf_token %}
+        <div class="recom-hidden">
+            <div class="hidden-content">{{recomment_form}}</div>
+            
+            <button type="submit" class="com-btn">Reply</button>
+            </div>
+        </div>
+    </form>
+</div>   
+    <!-- <script>
         function openCloseToc({comment_id}) {
           if(document.getElementById('toc-content').style.display === 'block') {
             document.getElementById('toc-content').style.display = 'none';
@@ -135,16 +137,10 @@
             document.getElementById('toc-toggle').textContent = 'cancel recomment';
           }
         }
-      </script>
+      </script> -->
 
-
-
-
-
-
-</form>
 <hr />
-
+</div>
 
 {% for recom in comment.recomment.all %}
 <div> ==>{{recom.user.nickname}}</div>
@@ -230,7 +226,7 @@
           button.addEventListener("click",likeUser)
       })
   </script>
-  <script>
+  <!-- <script>
       // recomment display handler
       function myFunction() {
       let x = document.querySelectorAll(".recom-form");
@@ -243,8 +239,31 @@
         x.style.display = "none";
       }
     }
+  </script> -->
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  
+  <script>
+        let toggle = document.querySelectorAll('.recom-hidden')
+
+        for(let i =0; i<toggle.length; i++) {
+            
+        
+            $('.recom-title').eq(i).click(function(){
+                if ($('.recom-form').eq(i).hasClass('active') === true) {
+                    $('.recom-form').removeClass('active');
+                }
+                else {$('.recom-form').eq(i).addClass('active');
+
+                }
+
+            });
+        }
+
+
   </script>
 
 {% endblock %}
 
-   

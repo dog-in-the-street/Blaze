@@ -116,7 +116,7 @@ body {
   align-items: center;
   display: flex;
   width: 100%;
-  
+  object-fit: cover;
   
   
   
@@ -133,23 +133,28 @@ body {
 
 
 
-
-
-
-
-
-
 .carousel-inner{
   position: relative;
   width: 100%;
   overflow: hidden;
   box-sizing: border-box; 
+  object-fit: cover;
 }
 
 .carousel {
   position: relative;
   box-sizing: border-box;
-  width: 300px;
+  width: 400px;
   height: 300px;
   overflow: hidden;
+  object-fit: cover;
 }
+
+.recom-hidden {
+  display: none;
+  
+}
+.active {
+  display: block;
+}
+
