@@ -58,7 +58,59 @@
     {% endblock %}
 
 
+    <button class="scroll-top" id="js-button">
+        <i class="fa fa-chevron-up" aria-hidden="true">TOP</i>
+    </button>
+    
+    
+    <script type="text/javascript">
+    scrollTop('js-button', 500);
+    function scrollTop(elem,duration) {
+        let target = document.getElementById(elem);
+    
+        target.addEventListener('click', function() {
+            let currentY = window.pageYOffset; 
+            let step = duration/currentY > 1 ? 10 : 100;
+            let timeStep = duration/currentY * step;
+            let intervalID = setInterval(scrollUp, timeStep);
+    
+            function scrollUp(){
+                currentY = window.pageYOffset;
+                if(currentY === 0) {
+                    clearInterval(intervalID);
+                } else {
+                    scrollBy( 0, -step );
+                }
+            }
+        });
+    }
+    </script>
 
+
+    <script>
+        // get flag emoji
+        const getFlagEmoji = (countryCode) => countryCode.toUpperCase().replace(/./g,
+            char => String.fromCodePoint(127397 + char.charCodeAt())
+        );
+        const flagReplace = document.querySelectorAll('[data-flag]');
+        flagReplace.forEach(s => s.innerHTML = getFlagEmoji(s.dataset.flag))
+
+        // handle search input length
+        const searchForm = document.querySelector('search-form')
+        const searchInput = document.querySelector('#search-input');
+        const handleInputValue = (e) => {
+
+            console.log(searchInput.value)
+            const value = searchInput.value.length;
+            if (value === 0 || value < 3) {
+                e.preventDefault();
+                alert("Please insert more than 3 characters!")
+            }
+        }
+        searchForm.addEventListener("submit", handleInputValue)
+</script>
+{% block script %}
+{% endblock %}
 </body>
 
 </html>

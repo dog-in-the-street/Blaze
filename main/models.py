@@ -26,6 +26,9 @@ class Post(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     registered_date = models.DateTimeField( auto_now_add=True , verbose_name='registration time')
 
+    def __str__(self) :
+        return self.title
+
     @property
     def created_string(self):
         time = datetime.now(tz=timezone.utc) - self.registered_date
@@ -83,6 +86,20 @@ class ChatRoom(models.Model):
     class Meta:
         ordering = ['-updated']
 
+    @property
+    def updated_string(self):
+        
+
+        if self.updated.date() == datetime.now(tz=timezone.utc).date():
+            return 'Today, ' 
+        elif self.updated.date() == datetime.now(tz=timezone.utc).date() - timedelta(1):
+            return 'Yesterday, ' 
+        else:
+            past_day = datetime.now(tz=timezone.utc).date() - self.updated.date()
+            return str(past_day.days) + 'days ago, '
+
+        
+
 
 # ChatRoom에서 through로 사용하는 class 
 class ChatRoomUser(models.Model):
@@ -107,6 +124,17 @@ class Message(models.Model):
 
     class Meta:
         get_latest_by = ['timestamp']
+
+    @property
+    def timestamp_string(self):
+
+        if self.timestamp.date() == datetime.now(tz=timezone.utc).date():
+            return 'Today, ' 
+        elif self.timestamp.date() == datetime.now(tz=timezone.utc).date() - timedelta(1):
+            return 'Yesterday, ' 
+        else:
+            past_day = datetime.now(tz=timezone.utc).date() - self.timestamp.date()
+            return str(past_day.days) + 'days ago, '
 
 
 class Comment(models.Model):

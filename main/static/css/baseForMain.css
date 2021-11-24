@@ -9,7 +9,7 @@ body {
   box-sizing: border-box;
   font-size: 10px;
   min-height: 702px;
-  background-color: #e5e5e5;
+  background-color: #DAE0E6;
   /* 세로 스크롤의 영향으로 가로 스크롤이 생겨서 가로 스크롤 방지 */
   overflow-x: hidden;
 }
@@ -91,8 +91,48 @@ body {
     font-weight: bold;
 }
 
-.carousel-innner{
-  width: 300px;
-  height: 200px;
+
+
+.scroll-top {
+	position: fixed;
+	right: 40px;
+	bottom: 30px;
+	z-index: 100;
+	background-color: #1a83ff;
+	opacity: .8;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	border: none;
+	color: #fff;
 }
 
+.scroll-top:hover {
+	cursor: pointer;
+}
+
+.card-img-top {
+  width: 300px;
+  height: 230px;
+  object-fit: cover;
+  margin: 20 auto;
+  /* display: block;
+  line-height: 1; */
+
+
+}
+
+
+
+
+.carousel-inner{
+  width:300px;
+  height:230px; 
+}
+
+.carousel {
+  width: 300px;
+  height: 230px;
+  /* display: flex;
+  justify-content: center; */
+}

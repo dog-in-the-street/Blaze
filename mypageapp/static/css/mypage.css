@@ -119,6 +119,7 @@ body {
   width: 90%;
   text-overflow: ellipsis;
   white-space: nowrap;
+ 
 }
 .post-text a{
     text-decoration: none;
@@ -205,4 +206,13 @@ body {
 }
 .post-text a:hover{
     color: #1a83ff;
+}
+
+.flag-body{
+  display: flex;
+}
+
+#flag{
+  font-size: 1.6rem;
+  margin-right: 2%;
 }
