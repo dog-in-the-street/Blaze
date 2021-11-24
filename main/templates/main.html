@@ -77,10 +77,10 @@
 
                         
                     {% endif %}
-                        </div>
+                    </div>
                     
 
-
+                        <a href="{%url 'detail' post.id %}">
                     <div class="post-body-bottom">
                         <div class="post-like-count"><img
                                 src="{% static 'images/fire.svg' %}" />&nbsp;&nbsp;{{post.like_users.count}}</div>
@@ -89,7 +89,7 @@
 
                 </div>
                 <div class="post-category">{{post.category}}</p>
-                </div>
+                </div></a>
             </a>
 
 
@@ -112,5 +112,13 @@
         interval: false,
         wrap: false
     })
+</script>
+<script>
+    let url = window.location.pathname;
+  
+  $('.category-wrapper').find('a').each(function() {
+    $(this).toggleClass('bold', $(this).attr('href') == url);
+    console.log(this)
+ });
 </script>
 {% endblock %}

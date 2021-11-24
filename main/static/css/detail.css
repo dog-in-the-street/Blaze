@@ -169,6 +169,20 @@ width: 80%;
     
 }
 
+.recomment-Btn{
+   cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: auto;
+    color: #1a83ff;
+
+}
+.recomment-Btn:hover{
+    border: none;
+}
+.recomment-Btn:focus{
+    border: none;
+}
+
 .comment-btn{
     margin-top: 2%;
     font-size: 1.4rem;
@@ -244,9 +258,14 @@ font-size: 3rem;
 
 .Rcomment {
     display: none;
+  
+    margin-left: 10%;
     
   }
 .active {
     display: block;
   }
   
+.carousel{
+    margin-left: 10%;
+  }

@@ -51,36 +51,38 @@
     <div class="post-text">{{my_post.text}}</div>
 
    
-    {% if my_post.image.all %}
-    <div id="my_post_{{ my_post.id }}" class="carousel slide" data-ride="carousel">
-        <div class="carousel-innner" role="listbox">
-           
-            {% for i in my_post.image.all %}
-            
+    {% if my_post.image %}
+                
+                    
+    <div id="my_post_{{ my_post.id }}" class="carousel slide" data-ride="carousel" style="width: 300px;
+    height: 200px;">
+        
+        <div class="carousel-inner" role="listbox">
+        
+        {% for i in my_post.image.all %}
             <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
 
-                <img src="{{ i.image.url }}" class="card-img-top">
-                       
-                <script>
-                    $('.carousel'.carousel({ pause: false }))
-                </script>
+                <img src="{{ i.image.url }}"class="card-img-top">
+                
             </div>
-            {% endfor %}
+        {% endfor %}
 
-            <a class="carousel-control-prev" href="#my_post_{{ my_post.id }}" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-                   
-            <a class="carousel-control-next" href="#my_post_{{ my_post.id }}" role="button" data-slide="next">         
-                 
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>   
+    
+        </div>
+        
+        <a class="carousel-control-prev" href="#my_post_{{ my_post.id }}" role="button"data-slide="prev">
+            <span class="carousel-control-prev-icon"aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+                    
+        <a class="carousel-control-next" href="#my_post_{{ my_post.id }}"role="button"data-slide="next">            
+            <span class="carousel-control-next-icon"aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>   
 
-        </div>
+    
+{% endif %}
     </div>
-        {% endif %}
         <div class="like-wrapper">
             <span class="like-count-{{my_post.id}}">{{my_post.like_users.count}}</span>
             {% if request.user in my_post.like_users.all %}
@@ -122,16 +124,19 @@
     <p id="flag" data-flag="{{comment.user.country}}"></p>
     <div class="nickname">
     <div class="user-nickname">{{comment.user.nickname}} </div>
-    <button class="recomment-Btn">Recomment</button>
+    
 
     {% if comment.created_string == False %}
     <div>{{ comment.registered_date|date:'y.m.d'}}</div>
     {% else %}
     <div>{{ comment.created_string }}</div>
     {% endif %}
+    
 </div>
     
+
     </div>
+    <a class="recomment-Btn">Recomment</a>
     {% if request.user == my_post.author %}
 <div class="delete-recomment">
     <a  class="del-btn" href="{% url 'delete_comment' comment.id my_post.id %}"><button id="deleteBtn"
@@ -152,9 +157,11 @@
     {% csrf_token %}
     <div class="comment-input">{{recomment_form}}</div>
     <button class="comment-btn" type="submit">ReComment</button>
+
 </form>
-</div>
 <hr />
+</div>
+
 
 
 {% for recom in comment.recomment.all %}
