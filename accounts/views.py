@@ -14,8 +14,8 @@ def signup(request):
             user = regi_form.save()
             auth_login(request, user,backend='django.contrib.auth.backends.ModelBackend')
             return redirect('main')
-    else :
-        form = SignUpForm()
-        print("error")
+        else :
+            form = SignUpForm()
+            print("error")
     return render(request,'signup.html',{'regi_form':regi_form})
 

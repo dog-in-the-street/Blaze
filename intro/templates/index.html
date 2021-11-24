@@ -1,31 +1,30 @@
 {% extends 'baseForIntro.html' %}
 {% load static %}
+
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/intro.css' %}">  
 {% endblock %}
 
-
 {% block body %}
-
-    <div class="intro-message">
-        Have a good one<br>
-        Nice to meet you
-    </div>
-    <div class="modal-container">
-        {% if user.is_authenticated %}
-            <h2>Welcome {{ user.nickname }}!</h2>
-            <div class="btn-wrapper">
-                <button class="signIn-btn"><a href="{% url 'main' %}">Go to blaze!</a></button>
-                <button class="google-signIn-btn"><a href="{% url 'signout' %}">Sign Out</a></button>
-            </div>
-        {% else %}
-            <h2>Sign in</h2>
-            <div class="btn-wrapper">
-              <button class="signIn-btn"><a href="{% url 'signin' %}">Sign in with E-mail</a></button>
-              <button class="google-signIn-btn"><a href="{% url 'social:begin' 'google-oauth2' %}" target='_blank'>Sign in with Google</a></button>
-                <a href="{% url 'main' %}" class="skip-link">Skip Sign in</a>
-            </div>
-        {% endif %}
-    </div>
+<div class="intro-message">
+    Have a good one<br>
+    Nice to meet you
+</div>
+<div class="modal-container">
+    {% if user.is_authenticated %}
+        <h2>Welcome {{ user.nickname }}!</h2>
+        <div class="btn-wrapper">
+            <button class="signIn-btn"><a href="{% url 'main' %}">Go to blaze!</a></button>
+            <button class="google-signIn-btn"><a href="{% url 'signout' %}">Sign Out</a></button>
+        </div>
+    {% else %}
+        <h2>Sign in</h2>
+        <div class="btn-wrapper">
+          <button class="signIn-btn"><a href="{% url 'signin' %}">Sign in with E-mail</a></button>
+          <button class="google-signIn-btn"><a href="{% url 'social:begin' 'google-oauth2' %}" target='_blank'>Sign in with Google</a></button>
+            <a href="{% url 'main' %}" class="skip-link">Skip Sign in</a>
+        </div>
+    {% endif %}
+</div>
 
 {% endblock %}
