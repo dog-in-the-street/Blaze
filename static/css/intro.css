@@ -1,0 +1,125 @@
+/* 초기화 코드 */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  min-height: 702px;
+  /* overflow-y: hidden; */
+}
+
+.background {
+  background-image: url("../images/backgroundImage.png");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.intro-logo {
+  width: 100%;
+}
+
+.intro-logo img {
+  padding: 2rem;
+  width: 180px;
+  height: 60px;
+}
+
+.intro-message {
+  text-align: center;
+  font-size: 3.6rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* login-modal  */
+.modal-container {
+  width: 100%;
+  height: 260px;
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+}
+
+.modal-container h2 {
+  text-align: center;
+  font-size: 2.4rem;
+
+}
+
+.btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-wrapper .signIn-btn{
+    margin-bottom: 3%;
+    text-align: center;
+    width: 240px;
+    height: 40px;
+    font-size: 1.6rem;
+    border-radius: 2em;
+    border: none;
+    background-color: #4277FF;
+    
+}
+
+.btn-wrapper .signIn-btn a{
+    color: white;
+    text-decoration: none;
+}
+
+.btn-wrapper .google-signIn-btn{
+    margin-bottom: 3%;
+    text-align: center;
+    width: 240px;
+    height: 40px;
+    font-size: 1.6rem;
+    border-radius: 2em;
+    background-color: white;
+    border: 1px solid black;
+}
+.btn-wrapper .google-signIn-btn a {
+    text-decoration: none;
+    color: black;
+}
+
+.skip-link{
+    color: #666666;
+    font-size: 1.4rem;
+}
+
+.login-wrapper {
+  margin-bottom: 3%;
+  text-align: center;
+  width: 240px;
+  height: 40px;
+  font-size: 1.6rem;
+  border-radius: 2em;
+  border: none;
+}
+
+.login-wrapper form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-wrapper .login-field {
+  text-align: center;
+}
+
+.signup-modal {
+  margin-bottom: 3%;
+  text-align: center;
+  width: 240px;
+  height: 40px;
+  font-size: 1.6rem;
+  border-radius: 2em;
+  border: none;
+}

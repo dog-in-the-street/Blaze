@@ -1,0 +1,147 @@
+.outer {
+    visibility: visible;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 60px;
+    /* 자식 요소를 가운데 정렬하기 위함 */
+    display: flex;
+    justify-content: center;
+}
+
+    .message-container {
+        position: relative;
+        top: 10%;
+        z-index: 2;
+        display: flex;
+        
+        /* 컨테이너 크기와 위치 정렬 */
+        background-color: white;
+        width: 50%;
+        height: 80%;
+        /* 채팅방 리스트 세로로 배치 */
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+
+        border-radius: 10px;
+    }
+
+        .container-header {
+            border-bottom: 1px solid #C4C4C4;
+            height: 15%;
+            width: 80%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-grow: 0;
+        }
+        
+
+            #flag {
+                font-size: 6rem;
+                margin-top: 30%;
+                margin-bottom: 30%;
+                
+            }
+
+            .user-nickname {
+                position: relative;
+                left:10px;
+                font-size: 20px;
+            }
+
+        #back-to-lobby {
+            position: absolute;
+            top: 4%;
+            right: 7%;
+            width: 20px;
+            height: 20px;
+        }
+            
+
+        .container-content {
+            margin-top: 5%;
+            margin-bottom: 5%;
+            width: 80%;
+            height: 60%;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid #C4C4C4;
+            
+        }
+
+            #chat-log {
+                width: 80%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                overflow: auto;
+                
+            }
+
+                /* 왼쪽 */
+                .received-messages {
+                    position: relative;
+	                background: #cfcfcf;
+                    color: black;
+                    margin-top: 15px;
+                    margin-bottom: 5px;
+                    text-align: center;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    width:fit-content;
+                    border-radius: 10px;
+                }
+
+                
+                /* 오른쪽 */
+                .send-messages {
+                    position: relative;
+	                background: #1a66ff;
+                    color: white;
+                    margin-top: 15px;
+                    margin-bottom: 5px;
+                    text-align: center;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    border-radius: 10px;
+                    width: fit-content;
+                    margin-left:auto;
+                }
+
+
+        .container-input {
+            width: 100%;
+            margin-bottom: 5%;
+            
+            display: flex;
+            flex-direction: row;
+            flex-grow: 0;
+            justify-content: center;
+            
+        }
+
+            #chat-message-input {
+                width: 80%;
+            }
+
+            #chat-message-submit {
+                margin-left: 10px;
+                width: 15px;
+                height: 15px;
+                position: relative;
+                top: 2px;
+            }
+
+           #timestamp-right {
+               margin-left: auto;
+               position: relative;
+               bottom: 15px;
+           }
