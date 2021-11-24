@@ -8,6 +8,7 @@
     /* 자식 요소를 가운데 정렬하기 위함 */
     display: flex;
     justify-content: center;
+    background-color: #DAE0E6;
 }
 
     .message-container {
