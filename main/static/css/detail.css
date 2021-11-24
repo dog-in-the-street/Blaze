@@ -91,6 +91,7 @@ body {
     margin-left: 10%;
     font-size: 1.6rem;
     width: 80%;
+    overflow-x: xden;
     margin-bottom: 5%;
 
 }
@@ -105,6 +106,7 @@ width: 80%;
     color: #1a83ff;
     font-size: 1.2rem;
 }
+
 
 #deleteBtn:focus{
     border: none;
@@ -239,3 +241,12 @@ font-size: 3rem;
     font-size: 1.4rem;
     font-weight: 600;
 }
+
+.Rcomment {
+    display: none;
+    
+  }
+.active {
+    display: block;
+  }
+  
