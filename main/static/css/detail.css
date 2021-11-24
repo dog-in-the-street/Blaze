@@ -15,12 +15,6 @@ body {
   text-decoration: none;
 }
 
-.top-wrapper{
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.4rem;
-    margin:  -5% 2% 0 2%;
-}
 .post-wrapper{
 
     display: flex;
@@ -29,19 +23,27 @@ body {
     margin: 100px auto 50px auto;
     height: 700px;
     background-color: white;
-    justify-content:space-around;
+    justify-content:space-between;
     border-radius: 8px;
 }
+
+.top-wrapper{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    margin:   2%;
+}
+
 
 .profile-wrapper{
     display: flex;
     align-items: center;
-    margin-top: -15%;
+    /* margin-top: -15%; */
 }
 
 .profile-wrapper p{
     font-size: 4rem;
-    margin: 0 1% 0 2%;
+    margin: 0 1% 0 10%;
 }
 
 .nickname-info{
@@ -77,19 +79,21 @@ body {
 }
 
 .post-title{
-    margin-top: -10%;
+    margin-bottom: 5%;
     margin-left: 10%;
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 2.4rem;
+    font-weight: bold;
 }
 
 .post-text{
    
-    margin-top: -10%;
+   
     margin-left: 10%;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     width: 80%;
     overflow-x: xden;
+    margin-bottom: 5%;
+
 }
 #text{
 width: 80%;
@@ -108,6 +112,7 @@ width: 80%;
 }
 
 .like-wrapper{
+    margin-bottom: 15%;
     margin-left: 10%;
     width: 10%;
     background-color: #1a83ff;
