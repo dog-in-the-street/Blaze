@@ -185,12 +185,35 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'jG1hezclO59_ZNRttySH2nR5'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
+#add custom field to social login
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username', 
+
+    'accounts.social.optional_user_data', # 얘 추가!
+    
+    'social.pipeline.user.create_user', # 중간에 create_user가 끼어있다
+    
+    'accounts.social.save_profile', # 얘 추가!
+    
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
+
+SOCIAL_AUTH_FIELDS_STORED_IN_SESSION = ['state']
+SESSION_COOKIE_SECURE = False
+
 # static root
 STATICFILES_DIRS = [
   os.path.join(BASE_DIR, 'intro', 'static'),
   os.path.join(BASE_DIR, 'main', 'static'),
   os.path.join(BASE_DIR, 'accounts', 'static'),
   os.path.join(BASE_DIR, 'mypage', 'static'),
+
 
 ]
 STATIC_URL = '/static/'
