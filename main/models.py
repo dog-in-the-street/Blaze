@@ -92,7 +92,7 @@ class ChatRoom(models.Model):
 
         if self.updated.date() == datetime.now(tz=timezone.utc).date():
             return 'Today, ' 
-        elif self.updated.date() == datetime.now(tz=timezone.utc).date() - timedelta(1).date():
+        elif self.updated.date() == datetime.now(tz=timezone.utc).date() - timedelta(1):
             return 'Yesterday, ' 
         else:
             past_day = datetime.now(tz=timezone.utc).date() - self.updated.date()
@@ -130,7 +130,7 @@ class Message(models.Model):
 
         if self.timestamp.date() == datetime.now(tz=timezone.utc).date():
             return 'Today, ' 
-        elif self.timestamp.date() == datetime.now(tz=timezone.utc).date() - timedelta(1).date():
+        elif self.timestamp.date() == datetime.now(tz=timezone.utc).date() - timedelta(1):
             return 'Yesterday, ' 
         else:
             past_day = datetime.now(tz=timezone.utc).date() - self.timestamp.date()

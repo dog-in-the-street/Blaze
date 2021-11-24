@@ -66,7 +66,7 @@
         // 서버에서 데이터를 수신해서 #chat-log에 추가함.
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').innerHTML += (data.message + '\n'); 
+            // document.querySelector('#chat-log').innerHTML += (data.message + '\n'); 
         };
         
         // 비정상적인 종료시에 (비동기니까 서버 연결에 민감)
@@ -79,6 +79,8 @@
         document.querySelector('#chat-message-input').onkeyup = function(e) {
             if (e.keyCode === 13) {
                 document.querySelector('#chat-message-submit').click();
+                window.location.reload(true);
+
             }
         };
 
@@ -96,18 +98,8 @@
         // 스크롤바 가장 아래에
         document.getElementById('chat-log').scrollTop = document.getElementById('chat-log').scrollHeight;
 
-        // 공백
-        // const handleInputValue = (e) => {
+        
+        
 
-        //     // handle search input length
-        //     const messageInput = document.querySelector('#chat-message-input')
-        //     const messageSubmit = document.querySelector('#chat-message-submit');
-        //     const value = messageInput.value.length;
-        //     if (value === 0) {
-        //         e.preventDefault();
-        //         alert("Blank is not allowed!")
-        //     }
-        //     }
-        //     messageInput.addEventListener("submit", handleInputValue)
     </script>
 {% endblock %}
