@@ -219,40 +219,40 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"> </script>
 <script>
-const likeBtn = document.querySelectorAll('.like-btn');
-function likeUser(e) {
-    const postId = e.target.dataset.id;
-    const likeCount = document.querySelector(`.like-count-${postId}`)
+    const likeBtn = document.querySelectorAll('.like-btn');
+    function likeUser(e) {
+        const postId = e.target.dataset.id;
+        const likeCount = document.querySelector(`.like-count-${postId}`)
 
-    axios.defaults.xsrfCookieName = 'csrftoken';
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-    axios.post(`/detail/${postId}/like/`)
-        .then(response => {
-            likeCount.innerText = response.data.count;
+        axios.defaults.xsrfCookieName = 'csrftoken';
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.post(`/detail/${postId}/like/`)
+            .then(response => {
+                likeCount.innerText = response.data.count;
 
-            if (response.data.liked) {
-                console.log(`${response.data.liked} false`)
-                e.target.className = "thumps-up like-btn";
-                e.target.style.color = "white";
-                e.target.innerText = "Cancel";
-                
-            } else if (response.data.liked === undefined) {
-                console.log("hey")
-                e.target.innerText = "로그인 창으로 이동합니다"
-                window.location = "http://127.0.0.1:8000/signin/";
-            } else {
-                console.log(`${response.data.liked} true`)
-                e.target.className = "thumps-down like-btn"
-                e.target.style.color = "white"
-                e.target.innerText = "Blaze!"
+                if (response.data.liked) {
+                    console.log(`${response.data.liked} false`)
+                    e.target.className = "thumps-up like-btn";
+                    e.target.style.color = "white";
+                    e.target.innerText = "Cancel";
+                   
+                } else if (response.data.liked === undefined) {
+                    console.log("hey")
+                    e.target.innerText = "로그인 창으로 이동합니다"
+                    window.location = "http://127.0.0.1:8000/signin/";
+                } else {
+                    console.log(`${response.data.liked} true`)
+                    e.target.className = "thumps-down like-btn"
+                    e.target.style.color = "white"
+                    e.target.innerText = "Blaze!"
+                }
             }
-        }
 
-        )
-}
-likeBtn.forEach(button => {
-    button.addEventListener("click", likeUser)
-})
+            )
+    }
+    likeBtn.forEach(button => {
+        button.addEventListener("click", likeUser)
+    })
 </script>
 <script>
     // recomment display handler
